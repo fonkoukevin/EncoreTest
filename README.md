@@ -1,0 +1,1 @@
+je te rappelle que plumora n'est pas suelement une application mobile de lecture mais une application d'ecriture, lecture et publication de livre donc on doit prendre tout ca en compte lors de la realisation de la maquette et de la navigation 
