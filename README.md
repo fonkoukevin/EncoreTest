@@ -1926,3 +1926,948 @@ Pour une première version, demande-lui d’abord les **12 écrans prioritaires*
 
 
 
+
+
+
+
+
+
+
+44444444444444444444444444
+
+
+Oui, **tu n’es pas obligé d’ajouter une navigation principale “Bêta-lecteur”**.
+
+Même je te conseille de **ne pas la mettre dans la bottom navigation principale**, sinon ton application risque de paraître trop chargée.
+
+La bonne approche est de garder une navigation simple, puis d’intégrer les bêta-lectures dans les bons espaces.
+
+# Navigation mobile recommandée
+
+Garde une navigation principale comme ça :
+
+```text
+Accueil | Découvrir | Écrire | Bibliothèque | Profil
+```
+
+Et tu places les bêta-lectures ici :
+
+## Côté lecteur / bêta-lecteur
+
+Dans **Bibliothèque**, tu ajoutes des onglets :
+
+```text
+Bibliothèque
+
+[ Mes lectures ] [ Favoris ] [ Bêta-lectures ]
+```
+
+Donc si quelqu’un est bêta-lecteur, il retrouve ses manuscrits privés dans **Bibliothèque > Bêta-lectures**.
+
+Exemple :
+
+```text
+Bêta-lectures
+
+La Nuit Rouge
+Auteur : Kevin Fonkou
+Statut : À lire
+Date limite : 12 juin
+[ Commencer la lecture ]
+
+Les Ombres de Minuit
+Statut : Retour en cours
+[ Continuer ]
+```
+
+C’est logique, parce que pour lui, une bêta-lecture reste une forme de lecture, mais privée et avant publication.
+
+---
+
+# Côté auteur
+
+Dans **Écrire**, tu ajoutes une section :
+
+```text
+Écrire
+
+Mes manuscrits
+Retours bêta
+Publication
+Royalties
+```
+
+Ou dans le détail d’un manuscrit :
+
+```text
+La Nuit Rouge
+
+Statut : En bêta-lecture
+12 retours reçus
+4 retours à traiter
+
+[ Voir les retours bêta ]
+[ Corriger dans l’éditeur ]
+[ Préparer publication ]
+```
+
+C’est logique, parce que pour l’auteur, la bêta-lecture fait partie du processus d’écriture et de correction.
+
+---
+
+# Donc où mettre “Bêta-lecteur” ?
+
+Pas forcément dans la navigation principale.
+
+Tu peux le mettre :
+
+```text
+Profil > Mes rôles
+```
+
+Exemple :
+
+```text
+Mes rôles
+
+[x] Auteur
+[x] Lecteur
+[x] Bêta-lecteur
+```
+
+Et selon ce rôle, l’utilisateur voit ou non :
+
+* l’onglet **Bêta-lectures** dans sa Bibliothèque ;
+* les invitations bêta reçues ;
+* les notifications liées aux manuscrits privés.
+
+---
+
+# Pourquoi ne pas mettre “Bêta-lecteur” dans la navigation principale ?
+
+Parce que la navigation principale doit rester simple.
+
+Si tu mets :
+
+```text
+Accueil | Découvrir | Écrire | Bêta | Bibliothèque | Profil
+```
+
+ça fait trop, surtout sur mobile.
+
+Et “Bêta” peut ne pas être utile tous les jours. Un utilisateur peut être bêta-lecteur seulement de temps en temps.
+
+Donc ce n’est pas un espace principal permanent comme :
+
+* lire ;
+* écrire ;
+* découvrir ;
+* gérer son profil.
+
+---
+
+# La meilleure structure pour Plumora
+
+## Navigation principale mobile
+
+```text
+Accueil | Découvrir | Écrire | Bibliothèque | Profil
+```
+
+## Dans Bibliothèque
+
+```text
+Mes lectures
+Favoris
+Bêta-lectures
+Historique
+```
+
+## Dans Écrire
+
+```text
+Mes manuscrits
+Retours bêta
+Publication
+Royalties
+```
+
+## Dans Profil
+
+```text
+Mes rôles
+Mes statistiques
+Paramètres
+```
+
+---
+
+# Pour ta maquette, fais comme ça
+
+Sur l’écran **Bibliothèque**, ajoute clairement :
+
+```text
+Mes bêta-lectures
+```
+
+Sur l’écran **Écrire / Manuscrit**, ajoute :
+
+```text
+Retours bêta reçus
+```
+
+Mais ne crée pas forcément un menu principal séparé.
+
+# Conclusion
+
+Tu dois garder le rôle **Bêta-lecteur**, mais tu n’as pas besoin d’une navigation principale dédiée.
+
+La structure la plus propre est :
+
+> **Bêta-lecture côté lecteur → dans Bibliothèque**
+> **Retours bêta côté auteur → dans Écrire**
+> **Rôle bêta-lecteur → dans Profil**
+
+C’est plus simple, plus logique et plus professionnel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+555555
+
+Oui, tu peux valider ces **2 intégrations IA**. Elles sont simples à comprendre, utiles pour l’utilisateur, visuelles en maquette, et réalistes à développer ensuite avec Spring Boot + Flutter.
+
+Les deux IA de Plumora seront :
+
+1. **Mukeme Lecture** : recommande des livres selon les envies du lecteur via une barre de recherche intelligente.
+2. **Mukeme Écriture** : aide les auteurs à reformuler, améliorer ou corriger un passage pendant l’écriture.
+
+L’objectif est que l’IA ne soit pas un gadget, mais une fonctionnalité intégrée naturellement dans les parcours **lecteur** et **auteur**.
+
+---
+
+# 1. IA côté lecteur : recherche intelligente de livres
+
+## Idée générale
+
+Dans l’espace lecteur, l’utilisateur ne cherche pas seulement un titre ou un auteur. Il peut écrire une envie naturelle, par exemple :
+
+> “Je veux un livre court, triste, avec une histoire d’amour compliquée et une fin surprenante.”
+
+Mukeme analyse cette demande et propose des livres adaptés.
+
+Ce n’est donc pas une simple recherche classique. C’est une recherche par **intention**, **émotion**, **genre**, **durée**, **ambiance** et **préférence personnelle**.
+
+---
+
+# Comment ça se présente dans l’application
+
+## Écran “Découvrir”
+
+Dans la navigation mobile, tu gardes :
+
+```text
+Accueil | Découvrir | Écrire | Bibliothèque | Profil
+```
+
+L’IA de lecture est placée dans l’onglet **Découvrir**.
+
+Visuellement, ton écran peut être comme ça :
+
+```text
+Découvrir
+
+Que veux-tu lire aujourd’hui ?
+
+[ Je veux une histoire courte, sombre, romantique... 🔍 ]
+
+Suggestions rapides :
+[ Thriller ] [ Romance ] [ Court ] [ Suspense ] [ Émotion ] [ Fantasy ]
+
+Trouver avec Mukeme
+Laisse Mukeme te proposer un livre selon ton humeur.
+
+[ Me recommander un livre ]
+
+Nouveautés
+[ Carte Livre ] [ Carte Livre ]
+
+Populaires
+[ Carte Livre ] [ Carte Livre ]
+```
+
+L’important est de mettre une **barre de recherche intelligente en haut**.
+
+Elle doit avoir un placeholder clair :
+
+```text
+Ex : Je veux un roman court, avec du suspense et une fin surprenante
+```
+
+Comme ça, dès la maquette, ton tuteur comprend que l’utilisateur peut exprimer une envie libre.
+
+---
+
+# Deux façons d’utiliser Mukeme Lecture
+
+## Option A — Recherche libre
+
+L’utilisateur écrit directement :
+
+```text
+Je veux une histoire courte, facile à lire, avec de l’émotion.
+```
+
+Puis il clique sur :
+
+```text
+[ Rechercher avec Mukeme ]
+```
+
+Ensuite, il arrive sur un écran de résultats.
+
+## Option B — Recherche guidée
+
+L’utilisateur peut aussi choisir des filtres visuels :
+
+```text
+Mon humeur :
+😌 Calme
+❤️ Romance
+😱 Suspense
+🔥 Motivation
+🌍 Évasion
+😢 Émotion
+
+Durée :
+[ Court ] [ Moyen ] [ Long ]
+
+Genre :
+[ Thriller ] [ Romance ] [ Fantasy ] [ Développement personnel ]
+```
+
+Puis bouton :
+
+```text
+[ Me recommander ]
+```
+
+Cette option est très bien pour la maquette, car elle est visuelle et facile à comprendre.
+
+---
+
+# Écran de résultats Mukeme Lecture
+
+Après la recherche, Mukeme affiche une sélection personnalisée.
+
+```text
+Sélection personnalisée par Mukeme
+
+D’après ton envie :
+“histoire courte, sombre, avec du suspense”
+
+1. La Nuit Rouge
+Score de correspondance : 94 %
+
+Pourquoi ce livre ?
+✓ Ambiance sombre
+✓ Suspense important
+✓ Lecture courte
+✓ Fin surprenante
+
+[ Lire ]
+[ Ajouter à ma liste ]
+
+2. Les Ombres de Minuit
+Score de correspondance : 88 %
+
+Pourquoi ce livre ?
+✓ Thriller psychologique
+✓ Personnages mystérieux
+✓ Rythme rapide
+
+[ Lire ]
+[ Ajouter à ma liste ]
+```
+
+Le plus important dans cet écran, c’est la partie :
+
+```text
+Pourquoi ce livre ?
+```
+
+C’est cette section qui rend l’IA visible. Sans ça, l’utilisateur voit juste une liste de livres comme dans une application classique.
+
+---
+
+# Écran détail d’un livre recommandé
+
+Quand l’utilisateur clique sur un livre, tu peux rappeler pourquoi Mukeme le recommande.
+
+```text
+La Nuit Rouge
+Kevin Fonkou
+
+Genre : Thriller
+Durée estimée : 2h30
+Note : 4.7
+Lectures : 1 240
+
+Résumé :
+Une jeune femme découvre que la disparition de son frère cache une vérité plus sombre...
+
+Pourquoi Mukeme te le recommande :
+✓ Tu as demandé une histoire courte
+✓ Tu aimes les ambiances sombres
+✓ Le livre contient du suspense
+✓ Les lecteurs apprécient sa fin surprenante
+
+[ Lire maintenant ]
+[ Ajouter aux favoris ]
+[ Partager ]
+```
+
+Cette logique est très professionnelle, car l’IA est explicable. Elle ne dit pas seulement “voici des livres”. Elle explique pourquoi.
+
+---
+
+# Ce que tu peux dire à ton tuteur
+
+Tu peux présenter cette IA comme ça :
+
+> Dans l’espace lecteur, j’intègre Mukeme comme un assistant de recommandation. L’utilisateur peut exprimer une envie de lecture en langage naturel, par exemple “je veux un livre court avec du suspense”. L’IA analyse l’intention, l’humeur, le genre et la durée souhaitée, puis propose des livres adaptés avec un score de correspondance et une explication du type “pourquoi ce livre”. Cela améliore la découverte de contenus et rend l’expérience plus personnalisée qu’une simple recherche par titre ou catégorie.
+
+---
+
+# 2. IA côté auteur : assistant d’écriture et reformulation
+
+## Idée générale
+
+Dans l’espace auteur, Mukeme aide l’auteur pendant l’écriture.
+
+L’auteur écrit son chapitre, sélectionne un passage, puis demande à Mukeme de l’aider.
+
+Mukeme peut :
+
+* reformuler un passage ;
+* améliorer le style ;
+* corriger les répétitions ;
+* rendre une phrase plus fluide ;
+* rendre un dialogue plus naturel ;
+* rendre un passage plus émotionnel ;
+* proposer un titre de chapitre ;
+* corriger certaines maladresses.
+
+Mais l’auteur garde toujours le contrôle. Mukeme propose, l’auteur accepte ou refuse.
+
+---
+
+# Comment ça se présente dans l’application
+
+L’IA d’écriture doit être surtout visible dans la **version desktop**, parce que l’écriture longue se fait mieux sur ordinateur.
+
+Dans la navigation desktop :
+
+```text
+Tableau de bord
+Mes manuscrits
+Éditeur
+Bêta-retours
+Publication
+Royalties
+Paramètres
+```
+
+L’utilisateur va dans :
+
+```text
+Éditeur
+```
+
+---
+
+# Écran éditeur desktop
+
+L’écran doit ressembler à un vrai outil d’écriture.
+
+```text
+---------------------------------------------------------
+| Plumora                         | La Nuit Rouge       |
+---------------------------------------------------------
+| Chapitres        | Zone d’écriture             | Mukeme |
+|------------------|-----------------------------|--------|
+| + Ajouter        | Chapitre 3 : Le départ      |        |
+| Chapitre 1       |                             | Assistant |
+| Chapitre 2       | Elle marchait seule dans... | d’écriture |
+| Chapitre 3       |                             |        |
+| Chapitre 4       |                             | [Reformuler] |
+|                  |                             | [Améliorer] |
+|                  |                             | [Corriger] |
+---------------------------------------------------------
+| Statut : Brouillon | Sauvegardé automatiquement |
+---------------------------------------------------------
+```
+
+Tu peux organiser l’écran en 3 zones :
+
+## Zone gauche : structure du livre
+
+```text
+Chapitres
+
++ Ajouter chapitre
+
+Chapitre 1 — Rencontre
+Chapitre 2 — Le secret
+Chapitre 3 — Le départ
+Chapitre 4 — La révélation
+```
+
+## Zone centrale : écriture
+
+```text
+Chapitre 3 : Le départ
+
+Elle marchait seule dans la nuit. Elle était très triste et elle ne savait pas quoi faire...
+```
+
+## Zone droite : assistant Mukeme
+
+```text
+Mukeme — Assistant d’écriture
+
+Sélectionne un passage pour obtenir de l’aide.
+
+Actions rapides :
+[ Reformuler ]
+[ Améliorer le style ]
+[ Corriger les répétitions ]
+[ Rendre plus émotionnel ]
+[ Rendre le dialogue naturel ]
+```
+
+---
+
+# Workflow visuel de Mukeme Écriture
+
+## Étape 1 — L’auteur écrit
+
+Il est dans l’éditeur.
+
+```text
+Elle était très triste et elle marchait très lentement dans la rue.
+```
+
+## Étape 2 — Il sélectionne un passage
+
+Dans la maquette, tu peux montrer le passage surligné.
+
+```text
+[Elle était très triste et elle marchait très lentement dans la rue.]
+```
+
+## Étape 3 — Il clique sur une action Mukeme
+
+Dans le panneau de droite :
+
+```text
+Que veux-tu faire avec ce passage ?
+
+[ Reformuler ]
+[ Améliorer le style ]
+[ Corriger les répétitions ]
+[ Rendre plus émotionnel ]
+```
+
+## Étape 4 — Mukeme propose une version
+
+```text
+Suggestion de Mukeme
+
+Version proposée :
+“Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait.”
+
+Explication :
+- phrase plus fluide
+- suppression de la répétition “très”
+- émotion plus marquée
+
+[ Accepter ]
+[ Modifier ]
+[ Ignorer ]
+```
+
+## Étape 5 — L’auteur décide
+
+Si l’auteur clique sur **Accepter**, le texte est remplacé.
+
+S’il clique sur **Modifier**, il peut ajuster la suggestion.
+
+S’il clique sur **Ignorer**, rien ne change.
+
+C’est très important pour la maquette : il faut montrer que l’IA ne publie rien et ne modifie rien automatiquement.
+
+---
+
+# Variante mobile pour Mukeme Écriture
+
+Sur mobile, l’écriture peut exister, mais plutôt en version simplifiée.
+
+Dans l’onglet **Écrire**, l’auteur peut ouvrir un manuscrit et faire de petites corrections.
+
+Exemple mobile :
+
+```text
+Écrire
+
+Mes manuscrits
+
+La Nuit Rouge
+Statut : Brouillon
+[ Continuer ]
+
+Les Ombres de Minuit
+Statut : En bêta-lecture
+[ Voir les retours ]
+```
+
+Puis écran chapitre :
+
+```text
+Chapitre 3 : Le départ
+
+[ Texte du chapitre ]
+
+[ Demander à Mukeme ]
+```
+
+Quand il clique :
+
+```text
+Mukeme
+
+Que veux-tu faire ?
+[ Reformuler ]
+[ Améliorer ]
+[ Corriger les répétitions ]
+
+Suggestion :
+...
+
+[ Accepter ] [Ignorer]
+```
+
+Mais pour ton MVP et ta maquette RNCP, je mettrais surtout la puissance d’écriture sur desktop.
+
+---
+
+# Où placer les deux IA dans la navigation ?
+
+Tu ne dois pas créer un onglet “IA” dans la navigation principale.
+
+Ça ferait gadget.
+
+Tu dois intégrer Mukeme dans les bons endroits :
+
+```text
+Mukeme Lecture
+→ Onglet Découvrir
+→ Barre de recherche intelligente
+→ Résultats recommandés
+→ Fiche livre
+
+Mukeme Écriture
+→ Onglet Écrire
+→ Éditeur desktop
+→ Panneau latéral d’aide à l’écriture
+```
+
+Donc la navigation reste simple :
+
+```text
+Accueil | Découvrir | Écrire | Bibliothèque | Profil
+```
+
+Et l’IA apparaît naturellement dans :
+
+* **Découvrir** pour les lecteurs ;
+* **Écrire / Éditeur** pour les auteurs.
+
+---
+
+# Cinématique complète avec IA intégrée
+
+Voici comment tu peux visualiser Plumora avec l’IA intégrée.
+
+## Parcours lecteur avec Mukeme Lecture
+
+```text
+Connexion
+→ Accueil
+→ Découvrir
+→ L’utilisateur écrit son envie dans la barre intelligente
+→ Mukeme analyse la demande
+→ Résultats personnalisés
+→ L’utilisateur lit “Pourquoi ce livre ?”
+→ Il ouvre la fiche livre
+→ Il lit le livre
+→ Il ajoute aux favoris ou laisse un avis
+```
+
+Visuellement :
+
+```text
+Découvrir
+↓
+Barre : “Je veux un livre court avec suspense”
+↓
+Bouton : “Rechercher avec Mukeme”
+↓
+Cartes de résultats
+↓
+Score + Pourquoi ce livre
+↓
+Fiche livre
+↓
+Lire
+```
+
+---
+
+## Parcours auteur avec Mukeme Écriture
+
+```text
+Connexion
+→ Accueil
+→ Écrire
+→ Mes manuscrits
+→ Ouvrir un livre
+→ Ouvrir l’éditeur desktop
+→ Sélectionner un passage
+→ Demander à Mukeme
+→ Choisir “Reformuler”
+→ Lire la suggestion
+→ Accepter / Modifier / Ignorer
+→ Sauvegarder
+→ Envoyer en bêta-lecture
+```
+
+Visuellement :
+
+```text
+Écrire
+↓
+Mes manuscrits
+↓
+Éditeur
+↓
+Sélection d’un passage
+↓
+Panneau Mukeme
+↓
+Suggestion
+↓
+Accepter / Modifier / Ignorer
+```
+
+---
+
+# Comment le montrer dans ta maquette Figma
+
+Pour que ton tuteur comprenne rapidement, fais ces écrans IA en priorité.
+
+## Écran IA 1 — Découvrir avec barre intelligente
+
+À faire absolument.
+
+```text
+Découvrir
+
+[ Je veux une histoire courte, sombre, avec du suspense... ]
+
+Suggestions :
+[ Romance ] [ Thriller ] [ Court ] [ Émotion ] [ Fantasy ]
+
+[ Rechercher avec Mukeme ]
+```
+
+## Écran IA 2 — Résultats recommandés
+
+À faire absolument.
+
+```text
+Sélection personnalisée par Mukeme
+
+La Nuit Rouge — 94 %
+
+Pourquoi ce livre ?
+- Suspense
+- Lecture courte
+- Ambiance sombre
+
+[ Lire ] [Ajouter]
+```
+
+## Écran IA 3 — Éditeur desktop avec panneau Mukeme
+
+À faire absolument.
+
+```text
+Chapitres | Zone d’écriture | Mukeme Assistant
+```
+
+## Écran IA 4 — Suggestion de reformulation
+
+À faire absolument.
+
+```text
+Passage sélectionné
+→ Suggestion Mukeme
+→ Accepter / Modifier / Ignorer
+```
+
+Avec seulement ces 4 écrans, on comprend parfaitement l’intégration IA.
+
+---
+
+# Détail important pour le développement
+
+Même si tu es encore sur la maquette, il faut déjà penser à la structure future.
+
+## Pour Mukeme Lecture
+
+Côté backend Spring Boot, tu peux prévoir un endpoint :
+
+```text
+POST /api/ai/book-recommendations
+```
+
+Entrée :
+
+```json
+{
+  "query": "Je veux une histoire courte avec du suspense",
+  "mood": "suspense",
+  "duration": "court",
+  "genres": ["thriller"]
+}
+```
+
+Sortie :
+
+```json
+{
+  "recommendations": [
+    {
+      "bookId": 1,
+      "title": "La Nuit Rouge",
+      "matchScore": 94,
+      "reasons": [
+        "Correspond à ton envie de suspense",
+        "Lecture courte",
+        "Ambiance sombre"
+      ]
+    }
+  ]
+}
+```
+
+## Pour Mukeme Écriture
+
+Endpoint possible :
+
+```text
+POST /api/ai/writing-assistant
+```
+
+Entrée :
+
+```json
+{
+  "action": "REFORMULATE",
+  "selectedText": "Elle était très triste et elle marchait très lentement dans la rue.",
+  "tone": "émotionnel",
+  "chapterContext": "Chapitre 3 : Le départ"
+}
+```
+
+Sortie :
+
+```json
+{
+  "suggestion": "Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait.",
+  "explanation": [
+    "Phrase plus fluide",
+    "Suppression des répétitions",
+    "Émotion renforcée"
+  ]
+}
+```
+
+Même si tu ne développes pas encore tout, cette vision t’aide à faire une maquette réaliste.
+
+---
+
+# Comment expliquer la valeur ajoutée IA
+
+Tu peux dire :
+
+> L’IA dans Plumora intervient à deux moments clés du cycle de vie du livre. Côté lecteur, Mukeme facilite la découverte de livres grâce à une recherche intelligente basée sur les envies, l’humeur et les préférences. Côté auteur, Mukeme assiste l’écriture en proposant des reformulations et améliorations stylistiques, tout en laissant l’auteur garder le contrôle sur chaque modification.
+
+Et encore mieux :
+
+> J’ai volontairement limité l’IA à deux cas d’usage pour éviter un effet gadget. Les deux intégrations répondent à des besoins réels : trouver plus facilement un livre adapté et aider l’auteur à améliorer son manuscrit pendant l’écriture.
+
+---
+
+# Résumé visuel final
+
+Dans ta maquette, tu dois retenir ça :
+
+```text
+MUKEME LECTURE
+
+Découvrir
+→ Barre de recherche intelligente
+→ Filtres d’envie/humeur
+→ Résultats personnalisés
+→ Score de correspondance
+→ Pourquoi ce livre ?
+```
+
+```text
+MUKEME ÉCRITURE
+
+Écrire
+→ Éditeur desktop
+→ Sélection d’un passage
+→ Actions IA
+→ Suggestion
+→ Accepter / Modifier / Ignorer
+```
+
+C’est exactement cette logique qui va rendre ta maquette claire, moderne et prête pour le développement.
+
+
+
+
+
+
+
+
