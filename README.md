@@ -1,2870 +1,318 @@
-Oui, tu as totalement raison. Il ne faut surtout pas maqueter Plumora comme une simple application de lecture.
+1- Bonjour, je vais vous présenter le cadrage du projet Plumora, une plateforme destinée aux auteurs, lecteurs et bêta-lecteurs
 
-**Plumora doit être pensée comme une plateforme complète**, avec plusieurs parcours selon le rôle de l’utilisateur :
+2- Pour structurer cette présentation, je vais d’abord présenter le contexte et les objectifs du projet, puis la cartographie des acteurs impliqués. Ensuite, je détaillerai l’audit, les risques, la veille et les choix techniques. Je terminerai par l’architecture proposée, le chiffrage et les préconisations.
 
-> **écrire → faire tester → corriger → publier → lire → partager → rémunérer**
+3- Le besoin part d’un constat simple : les auteurs indépendants utilisent souvent plusieurs outils séparés pour écrire, faire relire, corriger et publier leurs livres. Plumora vise à centraliser ce parcours dans une plateforme unique.
 
-Donc ta maquette doit montrer cette logique globale.
+La valeur ajoutée de Plumora est de réunir création littéraire, bêta-lecture, publication et intelligence artificielle dans une seule expérience mobile et desktop.
 
-# Positionnement correct de Plumora
+L’objectif n’est donc pas d’ajouter de l’IA pour suivre une tendance, mais de l’utiliser pour répondre à deux besoins concrets : améliorer l’écriture et améliorer la découverte de livres.
 
-Tu peux présenter Plumora comme :
+C’est dans ce contexte que se pose la problématique suivante :
 
-> **Plumora est une plateforme multiplateforme dédiée à l’écriture, la bêta-lecture, la publication, la lecture et la monétisation de livres numériques.**
+4- Cette slide distingue les objectifs fonctionnels et techniques de Plumora.
+Côté fonctionnel, l’objectif est de permettre aux auteurs de créer et organiser leurs livres, de proposer une bêta-lecture avant publication, d’offrir aux lecteurs un catalogue varié et d’intégrer une IA utile mais contrôlée.
+Côté technique, le projet doit reposer sur une API REST sécurisée, une architecture maintenable et testable, une dockerisation pour faciliter le déploiement et une application Flutter mobile et desktop.
+Ces objectifs permettent de répondre au besoin tout en préparant une solution évolutive.
 
-Donc dans ta maquette, il faut prévoir au minimum :
 
-* un espace **Auteur**
-* un espace **Lecteur**
-* un espace **Bêta-testeur**
-* un espace **Publication**
-* un espace **Revenus / royalties**
-* éventuellement un espace **Administration**
+Les objectifs fonctionnels correspondent à ce que la plateforme doit apporter aux utilisateurs.
 
-# Navigation générale recommandée
 
-Le plus propre est de faire une navigation par **mode utilisateur**.
+Les objectifs techniques concernent la manière dont la solution sera construite.
 
-Quand l’utilisateur se connecte, il peut avoir plusieurs rôles :
 
-* Auteur
-* Lecteur
-* Bêta-testeur
-* Admin
+5- Dans le périmètre initial, on retrouve les fonctionnalités principales tels que .......
 
-Dans l’application, tu peux afficher un sélecteur en haut :
 
-```text
-Plumora
+Le paiement et la monétisation sont exclus du périmètre initial afin de maîtriser la charge, les risques et les délais.
 
-[ Mode Lecteur ▼ ]
-```
+6- Cette slide présente la cartographie des acteurs impliqués dans le projet Plumora.
+L’objectif est d’identifier les parties prenantes, leurs rôles et leur niveau d’implication dans le projet.
 
-Et il peut changer :
+Au centre, on retrouve Plumora, qui représente la plateforme multi-supports.
+Autour de la plateforme, j’ai distingué trois niveaux d’implication.
 
-```text
-Mode Lecteur
-Mode Auteur
-Mode Bêta-testeur
-```
+Le premier niveau correspond à l’implication forte, représentée en rouge.
+Il s’agit de la MOA, c’est-à-dire la maîtrise d’ouvrage, qui formalise le besoin, définit la vision du projet, valide le périmètre et suit l’avancement.
+On retrouve aussi la MOE, la maîtrise d’œuvre, qui conçoit l’architecture, développe l’application, teste et déploie la solution.
+Ces acteurs sont essentiels à la réussite du projet.
 
-C’est très bien pour une maquette, parce que ça montre que Plumora est une plateforme complète.
+Le deuxième niveau correspond à l’implication moyenne, représentée en vert.
+Il s’agit des utilisateurs finaux : les auteurs, les lecteurs, les bêta-lecteurs et les administrateurs.
+Ils sont importants car leurs besoins orientent directement les fonctionnalités de Plumora. Par exemple, l’auteur écrit et publie ses œuvres, le lecteur lit les livres et donne son avis, le bêta-lecteur teste les manuscrits, et l’administrateur gère les signalements et modère les contenus.
 
----
+Le troisième niveau correspond à l’implication indirecte, représentée en bleu.
+Il regroupe les acteurs externes qui apportent des services ou des ressources au projet : Ollama pour l’IA Plumo, Gutendex pour enrichir le catalogue avec des livres du domaine public, Open Library pour les métadonnées et les couvertures, et l’hébergeur pour l’infrastructure, la sécurité et la disponibilité.
 
-# Navigation mobile proposée
+Cette cartographie permet donc de clarifier l’environnement du projet, de visualiser les responsabilités de chaque acteur et de montrer comment chacun contribue à la réussite de Plumora.
 
-Sur mobile, je te conseille une navigation simple avec 5 onglets :
 
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
+Version courte à mémoriser :
 
-## 1. Accueil
+Cette cartographie permet d’identifier les acteurs du projet, leurs rôles et leur niveau d’implication.
+Les acteurs en rouge, MOA et MOE, ont une implication forte car ils portent la vision, la conception, le développement et la validation du projet.
+Les acteurs en vert sont les utilisateurs finaux : auteurs, lecteurs, bêta-lecteurs et administrateurs. Ils orientent les fonctionnalités de Plumora.
+Les acteurs en bleu sont les partenaires externes : Ollama, Gutendex, Open Library et l’hébergeur. Ils apportent des services ou des ressources nécessaires au fonctionnement de la plateforme.
 
-L’accueil doit être intelligent selon le profil.
 
-Contenu possible :
+7- Cette slide montre les besoins principaux des utilisateurs de Plumora.
+L’auteur a besoin d’écrire, structurer et publier. Le lecteur veut découvrir et lire facilement des livres adaptés à ses envies. Le bêta-lecteur doit pouvoir commenter précisément un manuscrit. L’administrateur doit gérer les comptes, les signalements et l’historique.
+Ces besoins servent ensuite de base pour définir le périmètre fonctionnel du MVP.
 
-```text
-Bonjour Kevin 👋
 
-Continue ton activité
+8- Cette slide présente l’analyse SWOT du projet Plumora.
+L’objectif est d’identifier les forces, les faiblesses, les opportunités et les menaces afin de mieux cadrer le projet et d’anticiper les points de vigilance.
 
-[ Livre en cours de lecture ]
-[ Manuscrit en cours d’écriture ]
-[ Retours bêta à traiter ]
+Dans les forces, Plumora propose une plateforme complète autour du livre, avec une application mobile et desktop. L’intégration de l’IA apporte aussi une vraie valeur ajoutée, car elle peut aider à l’écriture et à la recommandation, tout en restant encadrée.
 
-Découvrir avec Mukeme
-Trouver un livre adapté à ton humeur
+Concernant les faiblesses, le périmètre fonctionnel est assez large. Le projet demande donc une bonne priorisation. Il existe aussi une complexité de synchronisation entre le frontend Flutter et le backend Spring Boot. Enfin, l’IA crée une dépendance à un fournisseur ou à un service IA.
 
-Nouveautés publiées
-Livres populaires
-```
+Du côté des opportunités, le projet s’inscrit dans le développement de l’autoédition. Il répond aussi à un besoin de bêta-lecture structurée et de recommandations personnalisées pour les lecteurs.
 
-Ici, tu montres directement que l’app fait **lecture + écriture + publication**.
+Pour les menaces, il faut surveiller la concurrence, les risques juridiques liés aux contenus externes, ainsi que l’indisponibilité possible des API externes comme Gutendex ou Open Library.
 
----
+En bas de la slide, j’ai ajouté les points de vigilance à suivre pendant le projet : la sécurité des données, les droits d’auteur, la performance sur les textes longs, la maîtrise du périmètre et la qualité de l’expérience utilisateur.
 
-## 2. Découvrir
+Cette analyse me permet donc de transformer les risques et opportunités en actions concrètes à surveiller pendant le développement.
 
-Partie dédiée aux lecteurs.
 
-Contenu :
+9- Cette slide présente la démarche d’audit et le diagnostic de l’existant réalisés pour le projet Plumora.
+L’objectif est de comprendre le contexte de départ, les contraintes du projet et les éléments à prendre en compte avant de valider la solution.
 
-* catalogue de livres
-* catégories
-* livres populaires
-* nouveautés
-* recommandations
-* recherche
-* assistant IA de recommandation
+J’ai séparé l’audit en deux parties : une partie fonctionnelle et une partie technique.
 
-Exemple :
 
-```text
-Découvrir
+Cette démarche d’audit permet donc de justifier les choix techniques et fonctionnels retenus pour le projet.
 
-[ Recherche un livre, un auteur, un genre ]
 
-Trouver avec Mukeme
-“Je veux lire une histoire courte, sombre et pleine de suspense”
 
-Genres
-Romance | Fantasy | Thriller | Développement personnel
 
-Recommandés pour toi
-```
 
-Ici, **Mukeme** peut être ton assistant IA de lecture.
 
----
 
-## 3. Écrire
 
-Partie dédiée aux auteurs.
 
-Contenu :
 
-* mes manuscrits
-* créer un nouveau livre
-* brouillons
-* livres en bêta-test
-* livres en correction
-* livres prêts à publier
+Version courte :
 
-Exemple :
+Cette slide présente l’audit réalisé avant de définir la solution.
+Sur le plan fonctionnel, j’ai identifié les rôles, les parcours utilisateurs et les fonctionnalités prioritaires du MVP.
+Sur le plan technique, j’ai analysé les plateformes cibles, l’architecture nécessaire et les contraintes de sécurité.
+Le diagnostic montre que Plumora part d’un besoin nouveau, sans application existante. Il faut donc prévoir une base PostgreSQL solide, une IA contrôlée et un déploiement reproductible avec Docker.
+Cette analyse permet de valider la faisabilité du projet et de justifier les choix techniques.
 
-```text
-Écrire
 
-[ + Nouveau livre ]
+10- Cette slide présente la cartographie des risques techniques et fonctionnels du projet Plumora.
+L’objectif est de ne pas seulement lister les risques, mais de les prioriser selon leur probabilité, leur impact et leur criticité.
 
-Mes manuscrits
+Pour chaque risque, j’ai indiqué son type, sa probabilité de réalisation, son impact, un score de criticité, une mesure de maîtrise et un indicateur de contrôle.
+Par exemple, la fuite de données utilisateur et la visibilité publique d’un livre privé sont des risques élevés, car ils touchent directement à la sécurité, à la confidentialité et à la confiance des utilisateurs.
 
-La Nuit Rouge
-Statut : Brouillon
-Dernière modification : aujourd’hui
+Le risque le plus important est le périmètre trop large, avec un score de 16. C’est pour cela que j’ai choisi de cadrer Plumora sous forme de MVP, afin de limiter les fonctionnalités au départ et éviter une dérive du projet.
 
-Les Ombres de Minuit
-Statut : En bêta-test
-12 retours reçus
+Les graphiques en bas permettent de visualiser rapidement la répartition des risques par criticité et les cinq risques les plus importants.
+On voit que les risques élevés sont prioritaires et doivent être suivis avec des indicateurs comme les alertes de sécurité, les tests d’accès, le suivi du MVP, ou encore la disponibilité des API externes.
 
-[ Continuer l’écriture ]
-```
+Cette matrice permet donc de piloter les risques pendant le projet et de prévoir des actions de maîtrise avant qu’ils n’impactent le développement.
 
-Sur mobile, l’écriture peut être limitée à des petites modifications.
-Pour la vraie écriture longue, tu mets en avant la version desktop.
 
-Exemple :
+Version courte :
 
-```text
-Pour une expérience d’écriture complète, ouvrez Plumora Desktop.
-```
+Cette slide présente les risques techniques et fonctionnels de Plumora. Chaque risque est évalué selon sa probabilité, son impact et sa criticité. Les risques les plus importants concernent le périmètre trop large, la sécurité des données, la visibilité des livres privés et la conformité juridique. Les mesures de maîtrise et les indicateurs permettent de suivre ces risques pendant le développement.
 
----
 
-## 4. Bibliothèque
+11- Cette slide présente le référentiel de suivi des risques et incidents prévu pour Plumora.
+Après avoir identifié les risques dans la matrice précédente, l’objectif ici est d’expliquer comment ces risques seront suivis et traités pendant le projet.
 
-Partie dédiée aux contenus de l’utilisateur.
+L’outil choisi est GitHub Issues ou GitHub Projects, car il permet de centraliser les bugs, les incidents, les risques et les actions correctives dans le même environnement que le code source.
 
-Contenu :
+Le cycle de traitement est organisé en cinq étapes.
+D’abord, le risque ou l’incident est identifié. Ensuite, il passe en analyse pour comprendre sa cause, son impact et la solution possible. Puis il est mis en cours lorsqu’une action corrective est lancée. Une fois la correction réalisée, il passe au statut corrigé. Enfin, il est validé après test ou vérification.
 
-* livres lus
-* livres favoris
-* livres achetés / sauvegardés
-* livres en cours
-* manuscrits bêta à lire si l’utilisateur est bêta-testeur
+En bas de la slide, les indicateurs de contrôle permettent de suivre l’état du projet.
+Par exemple, le nombre de bugs critiques ouverts permet de savoir s’il reste des anomalies bloquantes. Le taux d’erreurs API et le temps de réponse moyen permettent de surveiller la stabilité technique. La couverture des tests backend permet de contrôler la qualité du code. Les incidents de sécurité et les livres importés avec source vérifiée permettent de suivre les risques liés à la sécurité et aux droits.
 
-Exemple :
+Cette démarche permet donc de ne pas simplement lister les risques, mais de les suivre jusqu’à leur résolution.
 
-```text
-Bibliothèque
 
-En cours de lecture
-Favoris
-Mes bêta-lectures
-Téléchargés
-Historique
-```
 
----
 
-## 5. Profil
+Version courte :
 
-Partie compte utilisateur.
+Cette slide montre comment les risques et incidents seront suivis.
+J’utilise GitHub Issues ou GitHub Projects pour centraliser les anomalies, les bugs et les actions correctives.
+Chaque incident suit un cycle : identifié, en analyse, en cours, corrigé puis validé.
+Les indicateurs comme les bugs critiques ouverts, le taux d’erreurs API, le temps de réponse moyen, la couverture des tests ou les incidents sécurité permettent de contrôler l’impact des risques pendant le projet.
 
-Contenu :
 
-* profil
-* rôle(s)
-* statistiques
-* revenus auteur
-* paramètres
-* sécurité
-* déconnexion
+12- Cette slide présente les ressources techniques nécessaires à Plumora. Spring Boot sert à développer l’API REST sécurisée, PostgreSQL stocke les données, Flyway gère les migrations de base, et Docker facilite le déploiement.
+Flutter permet de créer l’application mobile et desktop, tandis que Figma sert à concevoir les maquettes.
+Ollama est utilisé pour l’IA Plumo, et Gutendex avec Open Library permettent d’enrichir le catalogue avec des livres du domaine public et leurs couvertures.
 
-Exemple :
 
-```text
-Profil
+13- Voici un texte prêt à dire :
 
-Kevin Fonkou
-Auteur | Lecteur | Bêta-testeur
+Cette slide présente l’étude comparative des solutions techniques envisagées pour Plumora.
+L’objectif est de comparer plusieurs options pour le backend, le frontend et l’IA, puis de justifier les choix retenus.
 
-Mes revenus
-Mes statistiques
-Paramètres
-Aide
-```
+Pour le backend, j’ai comparé Spring Boot, NestJS et Django.
+Spring Boot a été retenu parce qu’il est robuste, mature, sécurisé et bien adapté à la création d’API REST. Il est aussi cohérent avec mon expertise Java et avec les besoins de sécurité du projet.
+NestJS et Django sont de bonnes solutions, mais elles sont moins alignées avec l’écosystème Java choisi pour Plumora.
 
----
+Pour le frontend, j’ai comparé Flutter, React Native et Angular Web.
+Flutter a été retenu parce qu’il permet de développer une application mobile et desktop avec une base de code commune. C’est important pour Plumora, car l’auteur peut avoir besoin d’écrire sur desktop, tandis que le lecteur peut utiliser principalement le mobile.
+React Native est très bon pour le mobile, mais moins naturel pour le desktop. Angular est très adapté au web, mais moins pertinent pour une application mobile native.
 
-# Navigation desktop recommandée
+Pour l’IA, j’ai comparé Ollama local, OpenAI API et un Fake Provider.
+Ollama est retenu pour le MVP parce qu’il est local, gratuit, démontrable et permet de garder la maîtrise des données.
+L’API OpenAI reste une évolution possible pour une future mise en production plus scalable.
+Le Fake Provider peut être utilisé en test pour simuler des réponses IA sans dépendre d’un vrai modèle.
 
-La version desktop doit surtout servir à **l’écriture avancée**.
+Cette comparaison permet donc de justifier une stack cohérente pour Plumora : Spring Boot pour le backend, Flutter pour le frontend, et Ollama pour l’IA du MVP.
 
-Donc elle peut avoir une navigation latérale :
 
-```text
-Plumora Desktop
 
-Tableau de bord
-Mes manuscrits
-Éditeur
-Bêta-retours
-Publication
-Royalties
-Paramètres
-```
+Version courte :
 
-## Écran desktop principal : Tableau de bord auteur
+Cette slide justifie les choix techniques de Plumora.
+Spring Boot est retenu pour le backend, car il est robuste, sécurisé et adapté aux API REST.
+Flutter est retenu pour le frontend, car il permet de viser mobile et desktop avec un code partagé.
+Ollama est retenu pour l’IA du MVP, car il fonctionne localement, sans coût API, et permet une démonstration maîtrisée.
+OpenAI API reste une évolution possible pour une future version en production.
 
-```text
-Tableau de bord auteur
 
-Manuscrits en cours
-- La Nuit Rouge — Brouillon
-- Les Ombres de Minuit — En bêta-test
+14- Voici un texte prêt à dire :
 
-Retours à traiter
-- 12 commentaires reçus
-- 4 retours critiques
-- 2 incohérences signalées
+Cette slide présente la veille technique réalisée pour le projet Plumora.
+L’objectif de cette veille était d’identifier les technologies les plus adaptées, de limiter les risques techniques et d’anticiper les contraintes de sécurité.
 
-Publication
-- 1 livre prêt à publier
+Pour cela, je me suis appuyé principalement sur des sources fiables, notamment les documentations officielles de Spring Boot, Spring Security, Flutter, Ollama, Gutendex et Open Library Covers API.
+J’ai aussi consulté des références importantes comme l’OWASP Top 10 pour la sécurité, ainsi que le RGAA et Opquast pour les bonnes pratiques d’accessibilité.
 
-Royalties
-- Revenus estimés : 128,50 €
-```
+Les outils utilisés pour cette veille sont la documentation officielle, GitHub, Stack Overflow avec vérification, la veille réglementaire Google Play et les retours d’expérience de développeurs.
+L’idée était de ne pas prendre une décision uniquement sur une seule source, mais de croiser les informations.
 
----
+Cette veille a permis de confirmer plusieurs choix techniques : Spring Boot pour la robustesse du backend, Flutter pour le développement mobile et desktop, Ollama pour une IA locale au démarrage, et Gutendex avec Open Library pour enrichir le catalogue de livres.
 
-# Éditeur desktop
+Cette démarche montre que les choix techniques de Plumora sont argumentés, documentés et cohérents avec les besoins du projet.
 
-C’est un écran important dans ta maquette.
+Version courte :
 
-Structure visuelle :
+Cette slide présente ma démarche de veille technique.
+J’ai utilisé des sources fiables comme les documentations officielles Spring Boot, Flutter, Ollama, Gutendex et Open Library, ainsi que l’OWASP Top 10 et les référentiels RGAA / Opquast.
+Cette veille m’a permis de sécuriser mes choix techniques : Spring Boot pour le backend, Flutter pour le multi-support, Ollama pour l’IA locale, et Gutendex / Open Library pour enrichir le catalogue.
 
-```text
-------------------------------------------------
-| Chapitres        | Zone d’écriture           |
-|------------------|---------------------------|
-| Chapitre 1       | Titre du chapitre         |
-| Chapitre 2       |                           |
-| Chapitre 3       | Texte du manuscrit...     |
-| + Ajouter        |                           |
-|                  |                           |
-|                  | [Demander à Mukeme]       |
-------------------------------------------------
-| Commentaires bêta | Suggestions IA            |
-------------------------------------------------
-```
+Petite correction visuelle à faire dans ta slide : remplace “Identifier les thcnologies adaptées” par “Identifier les technologies adaptées”.
 
-Fonctions visibles :
 
-* liste des chapitres
-* zone d’écriture
-* sauvegarde automatique
-* bouton “Envoyer en bêta-test”
-* bouton “Préparer publication”
-* panneau de commentaires
-* assistant IA d’écriture
+15- Réflexion durant 18s
 
----
+Tu peux présenter cette slide comme l’architecture cible globale de Plumora, c’est-à-dire la manière dont les différents composants techniques communiquent entre eux.
 
-# Les deux cas d’IA à garder dans Plumora
+Voici un texte prêt à dire :
 
-Tu veux garder seulement deux cas IA. Je te recommande ceux-ci :
+Cette slide présente l’architecture préconisée pour Plumora.
+L’objectif est de montrer comment le frontend, le backend, la base de données, l’IA et les sources externes interagissent dans le système.
 
-## IA 1 — Mukeme Assistant de lecture
+À gauche, on retrouve l’application Flutter. Elle représente l’interface utilisateur mobile et desktop. Elle communique avec le backend via des requêtes HTTP sécurisées, au format JSON.
 
-Objectif : recommander des livres adaptés au lecteur.
+Au centre, le backend est développé avec Spring Boot sous forme d’API REST. Cette API reçoit les requêtes du frontend, expose les endpoints et transmet les traitements aux services applicatifs.
 
-Où l’afficher ?
+Les services applicatifs contiennent la logique métier de Plumora : gestion des utilisateurs, livres, chapitres, lecture, bêta-lecture, recommandations et intégration de l’IA.
 
-* page Accueil
-* page Découvrir
-* page Résultats personnalisés
+Les données sont stockées dans une base PostgreSQL. Les échanges avec la base passent par le backend, ce qui permet de centraliser les règles de sécurité et d’éviter que le frontend accède directement aux données.
 
-Exemple visuel :
+En bas, on retrouve les sources externes : Gutendex et Open Library. Elles permettent d’enrichir le catalogue avec des livres du domaine public, des métadonnées et des couvertures. Ces imports sont contrôlés côté backend.
 
-```text
-Mukeme te recommande un livre
+Enfin, l’IA Plumo repose sur Ollama en local pour le MVP. Flutter n’appelle jamais directement Ollama : l’appel passe par Spring Boot, ce qui permet de maîtriser les échanges, de sécuriser l’intégration et de pouvoir remplacer Ollama plus tard par un autre fournisseur IA si nécessaire.
 
-Que veux-tu lire aujourd’hui ?
+Cette architecture est donc cohérente avec les objectifs du projet : elle est sécurisée, maintenable, évolutive et adaptée à une application multi-supports.
 
-[ Je veux une histoire courte, romantique et facile à lire ]
 
-Humeur :
-😌 Calme  🔥 Motivation  😱 Suspense  ❤️ Romance
 
-[ Me recommander ]
-```
+Version courte :
 
-Résultat :
+Cette architecture montre le fonctionnement global de Plumora.
+L’application Flutter communique avec une API REST Spring Boot en JSON. Le backend orchestre les services applicatifs, applique les règles métier et échange avec PostgreSQL. Les imports Gutendex et Open Library sont contrôlés côté backend. L’IA Plumo utilise Ollama localement pour le MVP.
+L’intérêt de cette architecture est de séparer les responsabilités, sécuriser les données et préparer les évolutions futures du projet.
 
-```text
-Sélection de Mukeme
+16- Texte à dire à l’oral
 
-Les Ombres de Minuit
-Score : 92 %
+Cette slide présente l’architecture backend de Plumora.
+J’ai choisi une architecture en couches, inspirée de la Clean Architecture, afin de séparer clairement les responsabilités et de rendre le projet plus maintenable, testable et évolutif.
 
-Pourquoi ce livre ?
-- correspond à ton envie de suspense
-- lecture courte
-- fin surprenante
+Le frontend Flutter communique avec le backend via HTTPS en JSON. Le frontend ne communique pas directement avec la base de données, ni avec Ollama, ni avec les API externes. Tout passe par le backend.
 
-[ Lire ] [Ajouter à ma liste]
-```
+La première couche est la couche presentation. Elle contient les contrôleurs REST et les DTO. Son rôle est de recevoir les requêtes HTTP, valider les données d’entrée et retourner les réponses JSON.
 
-## IA 2 — Mukeme Assistant d’écriture
+La deuxième couche est la couche application. Elle contient les services et les cas d’usage. C’est ici que sont orchestrées les actions comme créer un livre, publier un livre, importer des livres ou demander une aide IA.
 
-Objectif : aider l’auteur à améliorer son texte.
+La troisième couche est la couche domain. Elle représente le cœur métier de Plumora avec les entités, les enums et les règles métier. Par exemple, un livre archivé ne doit plus être modifiable, ou un livre doit avoir au moins un chapitre pour être publié.
 
-Où l’afficher ?
+Enfin, la couche infrastructure regroupe les éléments techniques : les repositories PostgreSQL, les appels aux API externes Gutendex et Open Library, ainsi que le provider IA Ollama.
 
-* éditeur desktop
-* écran manuscrit
-* écran correction
+L’intérêt de cette architecture est d’isoler les dépendances techniques. Par exemple, si plus tard je remplace Ollama par OpenAI API, je peux le faire dans la couche infrastructure sans modifier toute la logique métier.
 
-Exemple visuel :
+Cette organisation permet donc d’avoir un backend plus sécurisé, plus maintenable et plus facile à faire évoluer.
 
-```text
-Assistant d’écriture Mukeme
+Version courte
 
-Passage sélectionné :
-“Elle marchait dans la nuit, triste et seule…”
+Cette slide présente l’architecture backend de Plumora.
+Le backend est organisé en quatre couches : presentation, application, domain et infrastructure.
+La couche presentation expose les contrôleurs REST et les DTO. La couche application orchestre les cas d’usage. La couche domain contient les règles métier. La couche infrastructure gère PostgreSQL, les API externes et l’IA Ollama.
+Cette séparation permet de sécuriser les échanges, de faciliter les tests et de rendre le projet évolutif.
+17- L’estimation totale est de 61 jours-homme.
+Cela signifie 61 jours de travail cumulés, répartis entre plusieurs profils : chef de projet, architecte, UI/UX designer, développeur backend, développeur front Flutter, développeur IA, QA/testeur et DevOps.
 
-Actions :
-[ Reformuler ]
-[ Améliorer le style ]
-[ Corriger les répétitions ]
-[ Rendre le dialogue plus naturel ]
-```
+Les phases prises en compte sont le cadrage, la conception, le développement, l’intégration, les tests et recette, le déploiement et le pilotage.
 
-Résultat :
+On voit que la phase la plus chargée est le développement, avec 25 jours-homme. C’est logique, car c’est la phase où sont développées les fonctionnalités principales : authentification, gestion des livres, chapitres, catalogue, bêta-lecture, IA Plumo et frontend Flutter.
 
-```text
-Suggestion Mukeme
+Le rôle le plus sollicité est le développeur backend, avec 21 jours-homme. Cela s’explique par le fait que le backend porte la logique métier, la sécurité, les API REST, la gestion des données et les intégrations avec les services externes.
 
-Version proposée :
-“Elle avançait dans l’obscurité, portée par une solitude silencieuse.”
+Cette estimation reste une estimation macro, adaptée à un MVP en contexte équipe. Elle permet de cadrer l’effort nécessaire, d’identifier les phases les plus importantes et de préparer ensuite le budget prévisionnel.
 
-[ Accepter ] [Modifier ] [Ignorer ]
-```
+Version courte à mémoriser :
 
-Ces deux IA sont cohérentes, parce qu’elles couvrent les deux grands usages de Plumora :
+Cette slide présente l’estimation de charge du MVP Plumora.
+La charge totale est estimée à 61 jours-homme, répartis par rôle et par phase projet.
+La phase la plus chargée est le développement avec 25 jours-homme, et le rôle le plus sollicité est le développeur backend avec 21 jours-homme.
+Cette estimation permet de justifier l’effort nécessaire et sert de base au budget prévisionnel.
 
-| Usage  | IA                           |
-| ------ | ---------------------------- |
-| Lire   | Recommandation personnalisée |
-| Écrire | Assistance rédactionnelle    |
+18- Tu peux présenter cette slide comme le passage entre charge de travail et budget prévisionnel.
 
----
+Voici un texte prêt à dire :
 
-# Workflow complet à montrer dans ta maquette
+Cette slide présente le budget prévisionnel du MVP Plumora.
+Le calcul est basé sur l’estimation de charge précédente, soit 61 jours-homme.
 
-Voici le workflow typique que tu peux présenter à ton tuteur.
+Pour rendre le budget plus réaliste, j’ai réparti la charge par rôle : chef de projet, architecte, UI/UX designer, développeur backend, développeur Flutter, développeur IA, QA/testeur et DevOps.
 
-## Parcours auteur
+Chaque rôle possède un TJM différent, car tous les profils n’ont pas le même niveau d’expertise ni le même coût journalier.
+Par exemple, l’architecte et le développeur IA ont un TJM plus élevé, car leurs missions demandent une expertise plus spécialisée. Le QA/testeur a un TJM plus bas, car son coût journalier est généralement moins élevé.
 
-```text
-Connexion
-→ Tableau de bord auteur
-→ Créer un livre
-→ Écrire les chapitres sur desktop
-→ Utiliser Mukeme pour améliorer certains passages
-→ Envoyer aux bêta-testeurs
-→ Recevoir les retours
-→ Corriger le manuscrit
-→ Soumettre à publication
-→ Validation admin
-→ Livre publié
-→ Suivi des lectures et royalties
-```
+Le coût de développement est calculé simplement avec la formule :
+charge en jours-homme × TJM du rôle.
 
-## Parcours bêta-testeur
+Le coût total de développement du MVP est donc estimé à 29 600 €.
 
-```text
-Connexion
-→ Bibliothèque bêta
-→ Lire le manuscrit reçu
-→ Ajouter des commentaires
-→ Signaler incohérence / faute / passage confus
-→ Envoyer son retour à l’auteur
-```
+En dessous, j’ai ajouté les coûts techniques prévisionnels. Ils comprennent l’hébergement backend avec la base PostgreSQL, le nom de domaine, le compte Google Play Developer, les outils de monitoring et de stockage, ainsi qu’une marge d’imprévus.
 
-## Parcours lecteur
+Les coûts techniques sont estimés à 1 940 €.
+Le budget total prévisionnel du projet est donc de 31 540 €, en additionnant le développement et les coûts techniques.
 
-```text
-Connexion
-→ Découvrir
-→ Utiliser Mukeme pour trouver un livre
-→ Voir les recommandations
-→ Ouvrir une fiche livre
-→ Lire
-→ Ajouter aux favoris
-→ Noter / partager
-```
+Version courte :
 
-## Parcours admin
+Cette slide présente le budget prévisionnel de Plumora.
+Il est calculé à partir de la charge estimée de 61 jours-homme, répartie par rôle avec des TJM différenciés.
+Le coût de développement est estimé à 29 600 €.
+À cela s’ajoutent les coûts techniques : hébergement, nom de domaine, compte Google Play, monitoring, stockage et marge d’imprévus, pour 1 940 €.
+Le budget total prévisionnel du MVP est donc de 31 540 €.
 
-```text
-Connexion admin
-→ Publications en attente
-→ Vérifier le livre
-→ Valider ou refuser
-→ Gérer les signalements
-→ Superviser la plateforme
-```
+Petite correction à faire sur ta slide : dans le tableau du haut, écris “MOA / Chef de projet” au lieu de “MOA / C hef de projet”.
 
----
-
-# Les écrans à maquettter en priorité
-
-Pour une première présentation, ne fais pas 50 écrans. Fais plutôt ceux-là :
-
-1. **Écran de connexion / choix de rôle**
-2. **Accueil global**
-3. **Dashboard auteur**
-4. **Éditeur desktop**
-5. **Gestion bêta-test**
-6. **Assistant de lecture Mukeme**
-7. **Résultats de recommandation**
-8. **Fiche livre**
-9. **Lecture livre**
-10. **Publication / soumission**
-11. **Royalties**
-12. **Admin publication**
-
-Avec ça, ton tuteur comprend immédiatement que Plumora est une plateforme complète.
-
----
-
-# Ma recommandation finale pour la maquette
-
-Pour être clair et professionnel, structure ta maquette autour de **3 grands espaces** :
-
-```text
-Espace Auteur
-→ écrire, corriger, publier, suivre les revenus
-
-Espace Lecteur
-→ découvrir, lire, sauvegarder, partager
-
-Espace Bêta-testeur
-→ lire avant publication, commenter, aider l’auteur
-```
-
-Et tu ajoutes **Mukeme** comme assistant intelligent dans deux endroits seulement :
-
-```text
-Mukeme Lecture → recommande des livres adaptés
-Mukeme Écriture → améliore les passages du manuscrit
-```
-
-Comme ça, ta maquette reste claire, cohérente et défendable devant ton tuteur.
-
-
-
-
-
-/*222222*/
-
-
-
-
-Oui, je vois ce que tu veux : tu veux une **cinématique complète**, c’est-à-dire une vision claire de **comment Plumora se présente visuellement**, comment l’utilisateur arrive, où il clique, quels écrans il voit, et comment les espaces s’enchaînent.
-
-Je vais te décrire Plumora comme si on regardait ta maquette écran par écran.
-
----
-
-# 1. Arrivée sur Plumora
-
-Quand l’utilisateur ouvre Plumora, il arrive sur un écran d’accueil simple, moderne et immersif.
-
-## Écran 1 — Landing / Bienvenue
-
-```text
-PLUMORA
-
-Écris. Publie. Lis. Partage.
-
-Une plateforme pour créer, bêta-tester, publier et découvrir des livres numériques.
-
-[ Se connecter ]
-[ Créer un compte ]
-```
-
-Visuellement, tu peux mettre :
-
-* une illustration d’un livre ouvert
-* une plume
-* une tablette ou un ordinateur
-* des cartes de livres en arrière-plan
-
-L’objectif de cet écran est de faire comprendre tout de suite que Plumora n’est pas seulement une app de lecture, mais une **plateforme complète autour du livre**.
-
----
-
-# 2. Création de compte / choix du profil
-
-Après inscription, l’utilisateur doit choisir comment il veut utiliser Plumora.
-
-## Écran 2 — Choix du profil
-
-```text
-Comment veux-tu utiliser Plumora ?
-
-[ Je veux écrire ]
-Créer, organiser et publier mes livres
-
-[ Je veux lire ]
-Découvrir, lire et sauvegarder des livres
-
-[ Je veux bêta-tester ]
-Lire des manuscrits avant publication et donner mon avis
-```
-
-Très important : un utilisateur peut avoir plusieurs rôles.
-
-Donc tu peux afficher :
-
-```text
-Tu pourras modifier tes rôles plus tard dans ton profil.
-```
-
-Pour ta maquette, c’est puissant parce que ça montre que Plumora a plusieurs parcours.
-
----
-
-# 3. Accueil principal après connexion
-
-Après connexion, l’utilisateur arrive sur un **dashboard global**.
-
-## Écran 3 — Accueil global
-
-```text
-Bonjour Kevin 👋
-
-Que veux-tu faire aujourd’hui ?
-
-[ Continuer à écrire ]
-[ Découvrir un livre ]
-[ Lire mes bêta-tests ]
-[ Voir mes revenus ]
-
-Activité récente
-- Chapitre 3 modifié il y a 2h
-- 4 nouveaux retours bêta reçus
-- 1 livre publié cette semaine
-- 12,40 € de royalties estimées
-```
-
-Cet écran doit être le **centre de Plumora**.
-
-Il montre les 3 grandes dimensions :
-
-* auteur
-* lecteur
-* bêta-testeur
-
-Navigation possible en bas sur mobile :
-
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
-
-Sur desktop, navigation latérale :
-
-```text
-Tableau de bord
-Écrire
-Bêta-tests
-Publication
-Découvrir
-Bibliothèque
-Royalties
-Profil
-```
-
----
-
-# 4. Espace Auteur
-
-L’espace auteur est le cœur créatif de Plumora.
-
-## Écran 4 — Dashboard Auteur
-
-```text
-Espace Auteur
-
-[ + Nouveau livre ]
-
-Mes manuscrits
-
-La Nuit Rouge
-Statut : Brouillon
-Progression : 35 %
-Dernière modification : aujourd’hui
-[ Continuer ]
-
-Les Ombres de Minuit
-Statut : En bêta-test
-12 retours reçus
-[ Voir les retours ]
-
-Sang d’Encre
-Statut : Prêt à publier
-[ Soumettre à publication ]
-```
-
-Visuellement, chaque manuscrit peut être une carte.
-
-Chaque carte affiche :
-
-* titre
-* couverture provisoire
-* statut
-* progression
-* dernière modification
-* action principale
-
-Les statuts doivent être très visibles :
-
-```text
-Brouillon
-En bêta-test
-En correction
-Prêt à publier
-Publié
-Refusé
-```
-
----
-
-# 5. Création d’un nouveau livre
-
-Quand l’auteur clique sur “Nouveau livre”.
-
-## Écran 5 — Création livre
-
-```text
-Créer un nouveau livre
-
-Titre du livre
-[________________]
-
-Genre
-[ Romance ▼ ]
-
-Résumé court
-[________________________]
-
-Visibilité
-( ) Privé
-( ) Bêta-test uniquement
-( ) Publication interne
-
-Couverture
-[ Importer une image ]
-
-[ Créer le livre ]
-```
-
-Ici, le but est de créer la fiche de base du livre avant d’écrire les chapitres.
-
----
-
-# 6. Éditeur d’écriture desktop
-
-C’est un écran très important. C’est lui qui montre que Plumora a une vraie dimension “écriture”.
-
-## Écran 6 — Éditeur desktop
-
-```text
----------------------------------------------------------
-| Plumora                 | La Nuit Rouge               |
-|-------------------------------------------------------|
-| Chapitres               | Zone d’écriture             |
-|                         |                             |
-| + Ajouter chapitre      | Chapitre 3 : Le départ      |
-|                         |                             |
-| Chapitre 1              | Elle regardait la ville...  |
-| Chapitre 2              |                             |
-| Chapitre 3  sélectionné |                             |
-| Chapitre 4              |                             |
-|                         |                             |
-|-------------------------------------------------------|
-| Statut : Brouillon      | [Sauvegardé automatiquement]|
-| [Demander à Mukeme]     | [Envoyer en bêta-test]      |
----------------------------------------------------------
-```
-
-Sur la gauche :
-
-* liste des chapitres
-* bouton ajouter chapitre
-* progression
-
-Au centre :
-
-* zone d’écriture
-* titre du chapitre
-* contenu
-
-À droite ou en bas :
-
-* assistant d’écriture Mukeme
-* commentaires bêta
-* historique des versions
-
----
-
-# 7. IA d’écriture — Mukeme
-
-L’IA doit apparaître comme un panneau discret, pas comme quelque chose qui prend toute la place.
-
-## Écran 7 — Assistant d’écriture Mukeme
-
-L’auteur sélectionne un passage, puis clique sur :
-
-```text
-[ Demander à Mukeme ]
-```
-
-Le panneau s’ouvre :
-
-```text
-Mukeme — Assistant d’écriture
-
-Passage sélectionné :
-"Elle était très triste et elle marchait très lentement dans la rue."
-
-Que veux-tu faire ?
-
-[ Reformuler ]
-[ Améliorer le style ]
-[ Rendre plus émotionnel ]
-[ Corriger les répétitions ]
-[ Rendre le dialogue plus naturel ]
-```
-
-Puis Mukeme propose :
-
-```text
-Suggestion
-
-"Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait."
-
-[ Accepter ]
-[ Modifier ]
-[ Ignorer ]
-```
-
-Ce qui est important : l’auteur garde le contrôle.
-
-Tu dois montrer visuellement que l’IA est une **aide**, pas un remplacement de l’auteur.
-
----
-
-# 8. Envoi en bêta-test
-
-Quand l’auteur estime que son manuscrit est prêt pour des retours.
-
-## Écran 8 — Soumission bêta-test
-
-```text
-Envoyer en bêta-test
-
-Livre : La Nuit Rouge
-
-Choisir les bêta-testeurs :
-[ Sarah ] [ Marc ] [ Julie ]
-
-Ou créer un lien d’invitation :
-[ Générer un lien privé ]
-
-Consignes pour les bêta-testeurs :
-[ Merci de faire attention au rythme, aux personnages et aux incohérences. ]
-
-Chapitres à partager :
-[x] Chapitre 1
-[x] Chapitre 2
-[x] Chapitre 3
-[ ] Chapitre 4
-
-[ Envoyer aux bêta-testeurs ]
-```
-
-Ça montre que l’auteur peut contrôler ce qu’il partage.
-
----
-
-# 9. Espace Bêta-testeur
-
-Le bêta-testeur reçoit un manuscrit à lire.
-
-## Écran 9 — Bibliothèque bêta
-
-```text
-Mes bêta-lectures
-
-La Nuit Rouge
-Auteur : Kevin Fonkou
-Date limite : 12 juin
-Progression : 40 %
-[ Continuer la lecture ]
-
-Les Ombres de Minuit
-Auteur : Clara M.
-Nouveau manuscrit reçu
-[ Commencer ]
-```
-
----
-
-# 10. Lecture bêta avec commentaires
-
-## Écran 10 — Lecture bêta
-
-```text
-------------------------------------------------
-La Nuit Rouge — Chapitre 2
-
-Texte du chapitre...
-
-"Elle entra dans la pièce sans savoir que son frère l’attendait."
-
-[ Ajouter un commentaire ]
-
-Type de retour :
-[ Incohérence ]
-[ Rythme lent ]
-[ Faute ]
-[ Dialogue ]
-[ Passage confus ]
-
-Commentaire :
-[ Ce passage arrive trop vite, on ne comprend pas pourquoi elle change d’avis. ]
-
-[ Envoyer le retour ]
-------------------------------------------------
-```
-
-Le bêta-testeur ne modifie pas le texte.
-Il ajoute seulement des retours.
-
-C’est important pour la logique métier.
-
----
-
-# 11. Retour côté auteur
-
-Après les bêta-tests, l’auteur revient dans son espace auteur.
-
-## Écran 11 — Retours bêta reçus
-
-```text
-Retours bêta — La Nuit Rouge
-
-12 commentaires reçus
-
-Filtres :
-[ Tous ] [ Incohérence ] [ Style ] [ Rythme ] [ Dialogue ]
-
-Résumé :
-- 4 retours sur le rythme
-- 3 retours sur le personnage principal
-- 2 incohérences signalées
-- 3 remarques de style
-
-Commentaires récents :
-
-Chapitre 2
-"Le changement de comportement du personnage est trop brutal."
-Type : Cohérence
-Priorité : Haute
-
-[ Marquer comme traité ]
-[ Ouvrir dans l’éditeur ]
-```
-
-Tu peux ajouter un tableau ou des cartes.
-
----
-
-# 12. Correction du manuscrit
-
-L’auteur clique sur “Ouvrir dans l’éditeur”.
-
-## Écran 12 — Correction avec retours
-
-```text
----------------------------------------------------------
-| Chapitres       | Texte                       | Retours |
-|-----------------|-----------------------------|---------|
-| Chapitre 1      |                             |         |
-| Chapitre 2      | Elle entra dans la pièce... | 3       |
-| Chapitre 3      |                             |         |
----------------------------------------------------------
-
-Commentaire sélectionné :
-"Le changement de comportement est trop brutal."
-
-Actions :
-[ Modifier le passage ]
-[ Marquer comme corrigé ]
-[ Répondre au bêta-testeur ]
-```
-
-Ici, tu montres la boucle :
-
-```text
-écriture → retour → correction
-```
-
-C’est très important.
-
----
-
-# 13. Préparation à la publication
-
-Quand le livre est corrigé, l’auteur peut le soumettre.
-
-## Écran 13 — Préparer la publication
-
-```text
-Préparer la publication
-
-Livre : La Nuit Rouge
-
-Checklist avant publication :
-
-[x] Titre renseigné
-[x] Résumé renseigné
-[x] Couverture ajoutée
-[x] Tous les chapitres complétés
-[x] Retours bêta traités
-[ ] Prix / modèle de rémunération défini
-[x] Catégorie sélectionnée
-
-Modèle de publication :
-( ) Gratuit
-( ) Payant
-( ) Lecture avec royalties internes
-
-[ Soumettre à validation ]
-```
-
-Là, tu peux montrer que la publication est encadrée.
-
----
-
-# 14. Validation administrateur
-
-Le livre n’est pas publié directement. Il passe par une validation.
-
-## Écran 14 — Admin publication
-
-```text
-Administration — Publications en attente
-
-La Nuit Rouge
-Auteur : Kevin Fonkou
-Genre : Thriller
-Statut : En attente de validation
-
-Checklist admin :
-[x] Contenu lisible
-[x] Résumé conforme
-[x] Couverture correcte
-[x] Aucun signalement critique
-[x] Catégorie adaptée
-
-Décision :
-[ Valider la publication ]
-[ Refuser avec motif ]
-```
-
-Si refus :
-
-```text
-Motif du refus :
-[ Couverture non conforme / contenu incomplet / problème de droits ]
-
-[ Envoyer au auteur ]
-```
-
-Ça donne un workflow professionnel.
-
----
-
-# 15. Livre publié dans le catalogue
-
-Une fois validé, le livre apparaît dans l’espace lecteur.
-
-## Écran 15 — Catalogue / Découvrir
-
-```text
-Découvrir
-
-[ Rechercher un livre, un auteur, un genre ]
-
-Trouver avec Mukeme
-[ Je veux une histoire courte avec du suspense ]
-
-Nouveautés
-[ Carte livre ] [ Carte livre ] [ Carte livre ]
-
-Populaires
-[ Carte livre ] [ Carte livre ] [ Carte livre ]
-
-Genres
-Romance | Thriller | Fantasy | Aventure
-```
-
-Chaque carte livre :
-
-```text
-[ Couverture ]
-
-La Nuit Rouge
-Kevin Fonkou
-Thriller
-
-⭐ 4.7
-1 240 lectures
-
-[ Lire ]
-```
-
----
-
-# 16. IA de lecture — recommandation Mukeme
-
-C’est ton deuxième cas IA.
-
-## Écran 16 — Assistant de lecture Mukeme
-
-```text
-Mukeme — Assistant de lecture
-
-Quel type de livre veux-tu lire aujourd’hui ?
-
-[ Je veux une histoire courte, sombre, avec du suspense et une fin surprenante. ]
-
-Mon humeur :
-😌 Calme
-❤️ Romance
-😱 Suspense
-🔥 Motivation
-🌍 Évasion
-
-Durée souhaitée :
-[ Court ] [ Moyen ] [ Long ]
-
-Genres :
-[ Thriller ] [ Romance ] [ Fantasy ] [ Développement personnel ]
-
-[ Me recommander ]
-```
-
-Visuellement, c’est très parlant.
-
----
-
-# 17. Résultats de recommandation IA
-
-## Écran 17 — Résultats Mukeme
-
-```text
-Sélection personnalisée par Mukeme
-
-1. La Nuit Rouge
-Score de correspondance : 94 %
-
-Pourquoi ce livre ?
-- Correspond à ton envie de suspense
-- Lecture courte
-- Ambiance sombre
-- Très apprécié par les lecteurs de thrillers
-
-[ Lire ]
-[ Ajouter à ma liste ]
-
-2. Les Ombres de Minuit
-Score : 88 %
-...
-```
-
-Le plus important est la section :
-
-```text
-Pourquoi ce livre ?
-```
-
-C’est ce qui rend l’IA visible et utile.
-
----
-
-# 18. Fiche détail d’un livre
-
-Quand le lecteur clique sur un livre.
-
-## Écran 18 — Fiche livre
-
-```text
-La Nuit Rouge
-Kevin Fonkou
-
-[ Couverture ]
-
-Genre : Thriller
-Durée estimée : 2h30
-Note : ⭐ 4.7
-Lectures : 1 240
-
-Résumé :
-Une jeune femme découvre que la disparition de son frère cache une vérité bien plus sombre...
-
-Pourquoi Mukeme te le recommande :
-- Ton goût pour les histoires sombres
-- Ton envie de suspense
-- Ton intérêt pour les fins surprenantes
-
-[ Lire maintenant ]
-[ Ajouter aux favoris ]
-[ Partager ]
-```
-
-Même ici, l’IA peut rester visible de manière naturelle.
-
----
-
-# 19. Écran de lecture
-
-## Écran 19 — Lecture
-
-```text
-La Nuit Rouge
-Chapitre 1
-
-Texte du livre...
-
-Options :
-[ Taille texte ]
-[ Mode sombre ]
-[ Marque-page ]
-[ Signaler un problème ]
-```
-
-Tu peux aussi afficher une barre de progression :
-
-```text
-Progression : 27 %
-```
-
----
-
-# 20. Avis / note / partage
-
-Après lecture.
-
-## Écran 20 — Avis lecteur
-
-```text
-Tu as terminé La Nuit Rouge 🎉
-
-Quelle note donnes-tu ?
-⭐ ⭐ ⭐ ⭐ ☆
-
-Laisser un avis :
-[ Très bon rythme, histoire prenante...]
-
-[ Publier l’avis ]
-[ Partager le livre ]
-```
-
-Ces avis alimentent :
-
-* la réputation du livre
-* la visibilité
-* les recommandations
-
----
-
-# 21. Royalties côté auteur
-
-Si le livre génère des lectures ou ventes simulées.
-
-## Écran 21 — Revenus auteur
-
-```text
-Royalties
-
-Revenus estimés ce mois-ci : 128,50 €
-
-Livres publiés :
-
-La Nuit Rouge
-1 240 lectures
-Revenus : 82,40 €
-
-Les Ombres de Minuit
-640 lectures
-Revenus : 46,10 €
-
-Historique :
-Mai : 128,50 €
-Avril : 97,20 €
-Mars : 54,00 €
-```
-
-Tu peux ajouter :
-
-```text
-Méthode de calcul :
-Revenu = lectures éligibles × taux de rémunération
-```
-
-Pour le RNCP, c’est très bien car tu montres une vraie règle métier.
-
----
-
-# 22. Profil utilisateur
-
-## Écran 22 — Profil
-
-```text
-Kevin Fonkou
-
-Rôles :
-Auteur | Lecteur | Bêta-testeur
-
-Statistiques :
-- 3 manuscrits créés
-- 1 livre publié
-- 12 livres lus
-- 8 bêta-tests réalisés
-
-Paramètres :
-[ Modifier profil ]
-[ Sécurité ]
-[ Notifications ]
-[ Mes rôles ]
-[ Déconnexion ]
-```
-
----
-
-# Cinématique complète résumée
-
-Voici le déroulé complet de Plumora :
-
-```text
-Bienvenue
-→ Inscription / Connexion
-→ Choix des rôles
-→ Accueil global
-
-Parcours Auteur :
-Accueil
-→ Espace Auteur
-→ Créer un livre
-→ Écrire sur desktop
-→ Utiliser Mukeme Écriture
-→ Envoyer en bêta-test
-→ Recevoir les retours
-→ Corriger le manuscrit
-→ Préparer publication
-→ Soumettre à validation
-→ Livre publié
-→ Suivre royalties
-
-Parcours Bêta-testeur :
-Accueil
-→ Mes bêta-lectures
-→ Lire manuscrit
-→ Ajouter commentaires
-→ Envoyer retours
-→ Auteur corrige
-
-Parcours Lecteur :
-Accueil
-→ Découvrir
-→ Utiliser Mukeme Lecture
-→ Voir recommandations
-→ Ouvrir fiche livre
-→ Lire
-→ Noter
-→ Partager
-
-Parcours Admin :
-Accueil admin
-→ Publications en attente
-→ Vérifier livre
-→ Valider ou refuser
-→ Gérer signalements
-```
-
----
-
-# Structure visuelle recommandée pour ta maquette
-
-Pour que ton tuteur comprenne vite, organise ta maquette en **4 zones**.
-
-## Zone 1 — Authentification
-
-```text
-Bienvenue
-Connexion
-Choix des rôles
-```
-
-## Zone 2 — Auteur
-
-```text
-Dashboard auteur
-Création livre
-Éditeur desktop
-Assistant Mukeme écriture
-Bêta-test
-Publication
-Royalties
-```
-
-## Zone 3 — Lecteur
-
-```text
-Découvrir
-Assistant Mukeme lecture
-Résultats recommandés
-Fiche livre
-Lecture
-Avis
-```
-
-## Zone 4 — Admin / contrôle
-
-```text
-Publications en attente
-Validation livre
-Modération
-```
-
----
-
-# Ma recommandation pour ta première maquette
-
-Ne fais pas tous les écrans en détail au début.
-
-Pour une première présentation claire à ton tuteur, fais ces **12 écrans prioritaires** :
-
-1. Bienvenue Plumora
-2. Choix du rôle
-3. Accueil global
-4. Dashboard auteur
-5. Création d’un livre
-6. Éditeur desktop
-7. Mukeme assistant d’écriture
-8. Bêta-test / retours
-9. Soumission publication
-10. Découvrir / catalogue
-11. Mukeme assistant de lecture
-12. Résultats recommandés + fiche livre
-
-Avec ces 12 écrans, on comprend parfaitement ton projet.
-
----
-
-# Le concept central à retenir
-
-Plumora doit se présenter comme une plateforme avec deux grands univers :
-
-```text
-Créer un livre
-→ écrire
-→ améliorer
-→ tester
-→ publier
-→ gagner des royalties
-
-Découvrir un livre
-→ chercher
-→ recevoir une recommandation IA
-→ lire
-→ noter
-→ partager
-```
-
-Et Mukeme intervient seulement à deux endroits stratégiques :
-
-```text
-Mukeme Écriture
-→ aide l’auteur à améliorer son texte
-
-Mukeme Lecture
-→ aide le lecteur à trouver le bon livre
-```
-
-C’est propre, clair, moderne et très défendable devant ton tuteur.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3333333333333
-
-
-
-
-Voici un **prompt complet, clair et précis** que tu peux donner à **Figma Make / Figma Maker** pour générer ta maquette Plumora.
-
-Tu peux le copier-coller tel quel.
-
-```text
-Crée une maquette UI/UX moderne, professionnelle et cohérente pour une plateforme appelée “Plumora”.
-
-CONTEXTE DU PROJET
-Plumora est une plateforme multiplateforme dédiée à l’écriture, la bêta-lecture, la publication, la lecture, le partage et la monétisation de livres numériques.
-
-La plateforme doit être pensée comme un écosystème complet autour du livre, et non comme une simple application de lecture.
-
-Plumora permet :
-- aux auteurs d’écrire et organiser leurs manuscrits ;
-- aux auteurs d’envoyer leurs livres à des bêta-testeurs ;
-- aux bêta-testeurs de lire les manuscrits avant publication et de laisser des commentaires ;
-- aux auteurs de corriger leurs livres à partir des retours ;
-- aux auteurs de publier leurs livres sur une plateforme interne ;
-- aux lecteurs de découvrir, lire, noter, sauvegarder et partager des livres ;
-- aux auteurs de suivre leurs statistiques et leurs royalties ;
-- aux administrateurs de valider ou refuser les publications ;
-- à l’IA “Mukeme” d’assister l’écriture et de recommander des livres adaptés aux lecteurs.
-
-STYLE VISUEL
-Créer une interface élégante, moderne, littéraire et premium.
-Le design doit inspirer :
-- créativité,
-- lecture,
-- confiance,
-- professionnalisme,
-- simplicité.
-
-Palette recommandée :
-- fond principal clair : blanc cassé / beige très clair ;
-- couleur principale : violet profond ou indigo ;
-- couleur secondaire : doré doux ou ambre ;
-- couleur d’accent : vert doux ou bleu clair pour les statuts positifs ;
-- texte principal : gris très foncé / noir doux.
-
-Typographie :
-- titres élégants et lisibles ;
-- texte simple et moderne ;
-- bonne hiérarchie visuelle.
-
-Utiliser des cartes arrondies, des ombres légères, des icônes modernes, une navigation claire, des badges de statut et des illustrations liées aux livres, plumes, manuscrits, ordinateurs et bibliothèques numériques.
-
-IMPORTANT
-La maquette doit montrer clairement que Plumora possède plusieurs espaces :
-1. Espace Auteur
-2. Espace Lecteur
-3. Espace Bêta-testeur
-4. Espace Administrateur
-5. Assistant IA Mukeme
-
-Créer une maquette mobile + desktop.
-La version mobile est surtout orientée lecture, découverte, suivi et gestion simple.
-La version desktop est surtout orientée écriture avancée et gestion auteur.
-
-STRUCTURE DES ÉCRANS À PRODUIRE
-
-ÉCRAN 1 — Bienvenue / Landing page
-Créer un écran d’accueil avec :
-- Logo “Plumora”
-- Slogan : “Écris. Publie. Lis. Partage.”
-- Texte court : “La plateforme qui accompagne les auteurs de l’écriture à la publication, et aide les lecteurs à découvrir leur prochain livre.”
-- Boutons : “Se connecter” et “Créer un compte”
-- Illustration : livre ouvert, plume, ordinateur ou cartes de livres
-
-ÉCRAN 2 — Connexion / Inscription
-Créer un écran simple avec :
-- Champ email
-- Champ mot de passe
-- Bouton “Se connecter”
-- Lien “Créer un compte”
-- Lien “Mot de passe oublié”
-
-ÉCRAN 3 — Choix des rôles
-Après inscription, l’utilisateur choisit son usage :
-Titre : “Comment veux-tu utiliser Plumora ?”
-Cartes de choix :
-- “Auteur” : écrire, organiser et publier mes livres
-- “Lecteur” : découvrir, lire et sauvegarder des livres
-- “Bêta-testeur” : lire des manuscrits avant publication et donner mon avis
-Ajouter une note : “Tu pourras modifier tes rôles plus tard dans ton profil.”
-Bouton : “Continuer”
-
-ÉCRAN 4 — Accueil global
-Créer un dashboard global après connexion.
-Afficher :
-- “Bonjour Kevin 👋”
-- Question : “Que veux-tu faire aujourd’hui ?”
-- Cartes d’action :
-  - Continuer à écrire
-  - Découvrir un livre
-  - Lire mes bêta-tests
-  - Voir mes revenus
-- Section “Activité récente” :
-  - Chapitre 3 modifié il y a 2h
-  - 4 nouveaux retours bêta reçus
-  - 1 livre publié cette semaine
-  - 12,40 € de royalties estimées
-Navigation mobile en bas :
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-
-ÉCRAN 5 — Dashboard Auteur
-Créer un espace auteur clair.
-Titre : “Espace Auteur”
-Bouton principal : “+ Nouveau livre”
-Section “Mes manuscrits”
-Afficher des cartes de manuscrits :
-1. “La Nuit Rouge”
-   - Statut : Brouillon
-   - Progression : 35 %
-   - Dernière modification : aujourd’hui
-   - Bouton : Continuer
-2. “Les Ombres de Minuit”
-   - Statut : En bêta-test
-   - 12 retours reçus
-   - Bouton : Voir les retours
-3. “Sang d’Encre”
-   - Statut : Prêt à publier
-   - Bouton : Soumettre à publication
-Utiliser des badges colorés pour les statuts :
-Brouillon, En bêta-test, En correction, Prêt à publier, Publié, Refusé.
-
-ÉCRAN 6 — Création d’un livre
-Créer un formulaire :
-Titre : “Créer un nouveau livre”
-Champs :
-- Titre du livre
-- Genre
-- Résumé court
-- Visibilité : Privé / Bêta-test uniquement / Publication interne
-- Importer une couverture
-Bouton : “Créer le livre”
-
-ÉCRAN 7 — Éditeur desktop d’écriture
-Créer un écran desktop large, avec une navigation latérale.
-Navigation latérale :
-- Tableau de bord
-- Mes manuscrits
-- Éditeur
-- Bêta-retours
-- Publication
-- Royalties
-- Paramètres
-
-Dans l’éditeur :
-- Colonne gauche : liste des chapitres
-  - + Ajouter chapitre
-  - Chapitre 1
-  - Chapitre 2
-  - Chapitre 3 sélectionné
-  - Chapitre 4
-- Zone centrale : zone d’écriture
-  - Titre du livre : “La Nuit Rouge”
-  - Titre du chapitre : “Chapitre 3 : Le départ”
-  - Texte de manuscrit fictif
-  - Indicateur : “Sauvegardé automatiquement”
-- Panneau droit ou bas :
-  - Bouton “Demander à Mukeme”
-  - Bouton “Envoyer en bêta-test”
-  - Section commentaires bêta récents
-
-L’écran doit ressembler à un outil professionnel d’écriture, simple mais puissant.
-
-ÉCRAN 8 — Mukeme Assistant d’écriture
-Créer un panneau IA dans l’éditeur.
-Titre : “Mukeme — Assistant d’écriture”
-Afficher un passage sélectionné :
-“Elle était très triste et elle marchait très lentement dans la rue.”
-Actions disponibles :
-- Reformuler
-- Améliorer le style
-- Rendre plus émotionnel
-- Corriger les répétitions
-- Rendre le dialogue plus naturel
-Afficher une suggestion :
-“Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait.”
-Boutons :
-- Accepter
-- Modifier
-- Ignorer
-Important : montrer que l’auteur garde le contrôle et que l’IA est une aide, pas un remplacement.
-
-ÉCRAN 9 — Soumission en bêta-test
-Créer un écran où l’auteur envoie son manuscrit à des bêta-testeurs.
-Titre : “Envoyer en bêta-test”
-Livre : La Nuit Rouge
-Section :
-- Choisir les bêta-testeurs : Sarah, Marc, Julie
-- Générer un lien privé d’invitation
-- Consignes pour les bêta-testeurs
-- Sélection des chapitres à partager
-Bouton : “Envoyer aux bêta-testeurs”
-
-ÉCRAN 10 — Espace Bêta-testeur
-Créer un écran “Mes bêta-lectures”.
-Afficher des cartes :
-1. La Nuit Rouge
-   - Auteur : Kevin Fonkou
-   - Date limite : 12 juin
-   - Progression : 40 %
-   - Bouton : Continuer la lecture
-2. Les Ombres de Minuit
-   - Nouveau manuscrit reçu
-   - Bouton : Commencer
-
-ÉCRAN 11 — Lecture bêta avec commentaire
-Créer un écran de lecture d’un manuscrit en bêta-test.
-Afficher :
-- Titre : “La Nuit Rouge — Chapitre 2”
-- Texte du chapitre
-- Bouton “Ajouter un commentaire”
-- Types de retour :
-  - Incohérence
-  - Rythme lent
-  - Faute
-  - Dialogue
-  - Passage confus
-- Zone de commentaire :
-“Ce passage arrive trop vite, on ne comprend pas pourquoi elle change d’avis.”
-- Bouton “Envoyer le retour”
-
-ÉCRAN 12 — Retours bêta côté auteur
-Créer un écran “Retours bêta — La Nuit Rouge”
-Afficher :
-- 12 commentaires reçus
-- Filtres : Tous, Incohérence, Style, Rythme, Dialogue
-- Résumé :
-  - 4 retours sur le rythme
-  - 3 retours sur le personnage principal
-  - 2 incohérences signalées
-  - 3 remarques de style
-- Liste de commentaires avec chapitre, type, priorité, texte du commentaire
-Boutons :
-- Marquer comme traité
-- Ouvrir dans l’éditeur
-
-ÉCRAN 13 — Préparation à la publication
-Créer un écran avec une checklist avant publication.
-Titre : “Préparer la publication”
-Livre : La Nuit Rouge
-Checklist :
-- Titre renseigné
-- Résumé renseigné
-- Couverture ajoutée
-- Tous les chapitres complétés
-- Retours bêta traités
-- Prix / modèle de rémunération défini
-- Catégorie sélectionnée
-Modèle de publication :
-- Gratuit
-- Payant
-- Lecture avec royalties internes
-Bouton : “Soumettre à validation”
-
-ÉCRAN 14 — Administration publication
-Créer un écran admin.
-Titre : “Administration — Publications en attente”
-Carte :
-- La Nuit Rouge
-- Auteur : Kevin Fonkou
-- Genre : Thriller
-- Statut : En attente de validation
-Checklist admin :
-- Contenu lisible
-- Résumé conforme
-- Couverture correcte
-- Aucun signalement critique
-- Catégorie adaptée
-Boutons :
-- Valider la publication
-- Refuser avec motif
-
-ÉCRAN 15 — Découvrir / Catalogue lecteur
-Créer un écran catalogue pour les lecteurs.
-Titre : “Découvrir”
-Barre de recherche :
-“Rechercher un livre, un auteur, un genre”
-Section IA :
-“Trouver avec Mukeme”
-Champ :
-“Je veux une histoire courte avec du suspense”
-Sections :
-- Nouveautés
-- Populaires
-- Genres : Romance, Thriller, Fantasy, Aventure, Développement personnel
-Cartes livre avec :
-- couverture
-- titre
-- auteur
-- genre
-- note
-- nombre de lectures
-- bouton Lire
-
-ÉCRAN 16 — Mukeme Assistant de lecture
-Créer un écran IA de recommandation.
-Titre : “Mukeme — Assistant de lecture”
-Question :
-“Quel type de livre veux-tu lire aujourd’hui ?”
-Champ de saisie :
-“Je veux une histoire courte, sombre, avec du suspense et une fin surprenante.”
-Choix visuels d’humeur :
-- Calme
-- Romance
-- Suspense
-- Motivation
-- Évasion
-Choix durée :
-- Court
-- Moyen
-- Long
-Choix genres :
-- Thriller
-- Romance
-- Fantasy
-- Développement personnel
-Bouton : “Me recommander”
-
-ÉCRAN 17 — Résultats de recommandation Mukeme
-Créer un écran de résultats.
-Titre : “Sélection personnalisée par Mukeme”
-Afficher 3 à 5 cartes livre.
-Chaque carte doit contenir :
-- couverture
-- titre
-- auteur
-- genre
-- score de correspondance
-- section “Pourquoi ce livre ?”
-Exemple :
-“La Nuit Rouge”
-Score de correspondance : 94 %
-Pourquoi ce livre ?
-- Correspond à ton envie de suspense
-- Lecture courte
-- Ambiance sombre
-- Très apprécié par les lecteurs de thrillers
-Boutons :
-- Lire
-- Ajouter à ma liste
-
-ÉCRAN 18 — Fiche détail livre
-Créer un écran détail :
-- Couverture
-- Titre : La Nuit Rouge
-- Auteur : Kevin Fonkou
-- Genre : Thriller
-- Durée estimée : 2h30
-- Note : 4.7
-- Lectures : 1 240
-- Résumé du livre
-- Section “Pourquoi Mukeme te le recommande”
-- Boutons :
-  - Lire maintenant
-  - Ajouter aux favoris
-  - Partager
-
-ÉCRAN 19 — Lecture livre
-Créer un écran de lecture :
-- Titre du livre
-- Chapitre
-- Texte du livre
-- Barre de progression : 27 %
-- Options :
-  - Taille du texte
-  - Mode sombre
-  - Marque-page
-  - Signaler un problème
-
-ÉCRAN 20 — Avis après lecture
-Créer un écran après fin de lecture :
-Titre : “Tu as terminé La Nuit Rouge 🎉”
-Afficher :
-- système de notation avec étoiles
-- champ pour laisser un avis
-- bouton “Publier l’avis”
-- bouton “Partager le livre”
-
-ÉCRAN 21 — Royalties auteur
-Créer un écran de revenus auteur.
-Titre : “Royalties”
-Afficher :
-- Revenus estimés ce mois-ci : 128,50 €
-- Liste des livres publiés :
-  - La Nuit Rouge : 1 240 lectures, revenus 82,40 €
-  - Les Ombres de Minuit : 640 lectures, revenus 46,10 €
-- Historique mensuel
-- Méthode de calcul :
-“Revenu = lectures éligibles × taux de rémunération”
-
-ÉCRAN 22 — Profil utilisateur
-Créer un écran profil :
-- Nom : Kevin Fonkou
-- Rôles : Auteur | Lecteur | Bêta-testeur
-- Statistiques :
-  - 3 manuscrits créés
-  - 1 livre publié
-  - 12 livres lus
-  - 8 bêta-tests réalisés
-- Paramètres :
-  - Modifier profil
-  - Sécurité
-  - Notifications
-  - Mes rôles
-  - Déconnexion
-
-NAVIGATION GLOBALE
-Sur mobile :
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-
-Sur desktop :
-Tableau de bord
-Mes manuscrits
-Éditeur
-Bêta-retours
-Publication
-Découvrir
-Bibliothèque
-Royalties
-Profil
-
-WORKFLOW À RENDRE VISUEL
-La maquette doit permettre de comprendre ces parcours :
-
-Parcours Auteur :
-Connexion → Accueil → Espace Auteur → Créer un livre → Écrire sur desktop → Utiliser Mukeme Écriture → Envoyer en bêta-test → Recevoir les retours → Corriger → Préparer publication → Soumettre à validation → Livre publié → Suivre royalties
-
-Parcours Bêta-testeur :
-Connexion → Mes bêta-lectures → Lire manuscrit → Ajouter commentaires → Envoyer retours
-
-Parcours Lecteur :
-Connexion → Découvrir → Utiliser Mukeme Lecture → Voir recommandations → Ouvrir fiche livre → Lire → Noter → Partager
-
-Parcours Admin :
-Connexion admin → Publications en attente → Vérifier livre → Valider ou refuser
-
-CAS IA À INTÉGRER
-Limiter l’IA à 2 fonctionnalités principales :
-
-1. Mukeme Assistant d’écriture
-Objectif : aider l’auteur à améliorer son texte.
-Actions : reformuler, améliorer le style, corriger les répétitions, rendre un passage plus émotionnel.
-L’auteur doit pouvoir accepter, modifier ou ignorer la suggestion.
-
-2. Mukeme Assistant de lecture
-Objectif : recommander des livres adaptés aux goûts, à l’humeur et aux envies du lecteur.
-Afficher un score de correspondance et une section “Pourquoi ce livre ?”.
-
-CONTRAINTE IMPORTANTE
-La maquette doit être claire pour une présentation à un tuteur.
-Elle doit montrer que Plumora est une plateforme complète d’écriture, bêta-test, publication, lecture et royalties.
-Ne pas faire une simple application de lecture.
-Mettre en avant la cohérence produit, la qualité visuelle et la facilité de navigation.
-```
-
-Tu peux aussi ajouter à la fin du prompt :
-
-```text
-Génère la maquette sous forme d’un prototype cohérent avec des écrans reliés entre eux, en montrant les transitions principales entre les parcours Auteur, Lecteur, Bêta-testeur et Administrateur.
-```
-
-Pour une première version, demande-lui d’abord les **12 écrans prioritaires** au lieu des 22 si Figma Maker bloque ou fait quelque chose de trop lourd.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-44444444444444444444444444
-
-
-Oui, **tu n’es pas obligé d’ajouter une navigation principale “Bêta-lecteur”**.
-
-Même je te conseille de **ne pas la mettre dans la bottom navigation principale**, sinon ton application risque de paraître trop chargée.
-
-La bonne approche est de garder une navigation simple, puis d’intégrer les bêta-lectures dans les bons espaces.
-
-# Navigation mobile recommandée
-
-Garde une navigation principale comme ça :
-
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
-
-Et tu places les bêta-lectures ici :
-
-## Côté lecteur / bêta-lecteur
-
-Dans **Bibliothèque**, tu ajoutes des onglets :
-
-```text
-Bibliothèque
-
-[ Mes lectures ] [ Favoris ] [ Bêta-lectures ]
-```
-
-Donc si quelqu’un est bêta-lecteur, il retrouve ses manuscrits privés dans **Bibliothèque > Bêta-lectures**.
-
-Exemple :
-
-```text
-Bêta-lectures
-
-La Nuit Rouge
-Auteur : Kevin Fonkou
-Statut : À lire
-Date limite : 12 juin
-[ Commencer la lecture ]
-
-Les Ombres de Minuit
-Statut : Retour en cours
-[ Continuer ]
-```
-
-C’est logique, parce que pour lui, une bêta-lecture reste une forme de lecture, mais privée et avant publication.
-
----
-
-# Côté auteur
-
-Dans **Écrire**, tu ajoutes une section :
-
-```text
-Écrire
-
-Mes manuscrits
-Retours bêta
-Publication
-Royalties
-```
-
-Ou dans le détail d’un manuscrit :
-
-```text
-La Nuit Rouge
-
-Statut : En bêta-lecture
-12 retours reçus
-4 retours à traiter
-
-[ Voir les retours bêta ]
-[ Corriger dans l’éditeur ]
-[ Préparer publication ]
-```
-
-C’est logique, parce que pour l’auteur, la bêta-lecture fait partie du processus d’écriture et de correction.
-
----
-
-# Donc où mettre “Bêta-lecteur” ?
-
-Pas forcément dans la navigation principale.
-
-Tu peux le mettre :
-
-```text
-Profil > Mes rôles
-```
-
-Exemple :
-
-```text
-Mes rôles
-
-[x] Auteur
-[x] Lecteur
-[x] Bêta-lecteur
-```
-
-Et selon ce rôle, l’utilisateur voit ou non :
-
-* l’onglet **Bêta-lectures** dans sa Bibliothèque ;
-* les invitations bêta reçues ;
-* les notifications liées aux manuscrits privés.
-
----
-
-# Pourquoi ne pas mettre “Bêta-lecteur” dans la navigation principale ?
-
-Parce que la navigation principale doit rester simple.
-
-Si tu mets :
-
-```text
-Accueil | Découvrir | Écrire | Bêta | Bibliothèque | Profil
-```
-
-ça fait trop, surtout sur mobile.
-
-Et “Bêta” peut ne pas être utile tous les jours. Un utilisateur peut être bêta-lecteur seulement de temps en temps.
-
-Donc ce n’est pas un espace principal permanent comme :
-
-* lire ;
-* écrire ;
-* découvrir ;
-* gérer son profil.
-
----
-
-# La meilleure structure pour Plumora
-
-## Navigation principale mobile
-
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
-
-## Dans Bibliothèque
-
-```text
-Mes lectures
-Favoris
-Bêta-lectures
-Historique
-```
-
-## Dans Écrire
-
-```text
-Mes manuscrits
-Retours bêta
-Publication
-Royalties
-```
-
-## Dans Profil
-
-```text
-Mes rôles
-Mes statistiques
-Paramètres
-```
-
----
-
-# Pour ta maquette, fais comme ça
-
-Sur l’écran **Bibliothèque**, ajoute clairement :
-
-```text
-Mes bêta-lectures
-```
-
-Sur l’écran **Écrire / Manuscrit**, ajoute :
-
-```text
-Retours bêta reçus
-```
-
-Mais ne crée pas forcément un menu principal séparé.
-
-# Conclusion
-
-Tu dois garder le rôle **Bêta-lecteur**, mais tu n’as pas besoin d’une navigation principale dédiée.
-
-La structure la plus propre est :
-
-> **Bêta-lecture côté lecteur → dans Bibliothèque**
-> **Retours bêta côté auteur → dans Écrire**
-> **Rôle bêta-lecteur → dans Profil**
-
-C’est plus simple, plus logique et plus professionnel.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-555555
-
-Oui, tu peux valider ces **2 intégrations IA**. Elles sont simples à comprendre, utiles pour l’utilisateur, visuelles en maquette, et réalistes à développer ensuite avec Spring Boot + Flutter.
-
-Les deux IA de Plumora seront :
-
-1. **Mukeme Lecture** : recommande des livres selon les envies du lecteur via une barre de recherche intelligente.
-2. **Mukeme Écriture** : aide les auteurs à reformuler, améliorer ou corriger un passage pendant l’écriture.
-
-L’objectif est que l’IA ne soit pas un gadget, mais une fonctionnalité intégrée naturellement dans les parcours **lecteur** et **auteur**.
-
----
-
-# 1. IA côté lecteur : recherche intelligente de livres
-
-## Idée générale
-
-Dans l’espace lecteur, l’utilisateur ne cherche pas seulement un titre ou un auteur. Il peut écrire une envie naturelle, par exemple :
-
-> “Je veux un livre court, triste, avec une histoire d’amour compliquée et une fin surprenante.”
-
-Mukeme analyse cette demande et propose des livres adaptés.
-
-Ce n’est donc pas une simple recherche classique. C’est une recherche par **intention**, **émotion**, **genre**, **durée**, **ambiance** et **préférence personnelle**.
-
----
-
-# Comment ça se présente dans l’application
-
-## Écran “Découvrir”
-
-Dans la navigation mobile, tu gardes :
-
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
-
-L’IA de lecture est placée dans l’onglet **Découvrir**.
-
-Visuellement, ton écran peut être comme ça :
-
-```text
-Découvrir
-
-Que veux-tu lire aujourd’hui ?
-
-[ Je veux une histoire courte, sombre, romantique... 🔍 ]
-
-Suggestions rapides :
-[ Thriller ] [ Romance ] [ Court ] [ Suspense ] [ Émotion ] [ Fantasy ]
-
-Trouver avec Mukeme
-Laisse Mukeme te proposer un livre selon ton humeur.
-
-[ Me recommander un livre ]
-
-Nouveautés
-[ Carte Livre ] [ Carte Livre ]
-
-Populaires
-[ Carte Livre ] [ Carte Livre ]
-```
-
-L’important est de mettre une **barre de recherche intelligente en haut**.
-
-Elle doit avoir un placeholder clair :
-
-```text
-Ex : Je veux un roman court, avec du suspense et une fin surprenante
-```
-
-Comme ça, dès la maquette, ton tuteur comprend que l’utilisateur peut exprimer une envie libre.
-
----
-
-# Deux façons d’utiliser Mukeme Lecture
-
-## Option A — Recherche libre
-
-L’utilisateur écrit directement :
-
-```text
-Je veux une histoire courte, facile à lire, avec de l’émotion.
-```
-
-Puis il clique sur :
-
-```text
-[ Rechercher avec Mukeme ]
-```
-
-Ensuite, il arrive sur un écran de résultats.
-
-## Option B — Recherche guidée
-
-L’utilisateur peut aussi choisir des filtres visuels :
-
-```text
-Mon humeur :
-😌 Calme
-❤️ Romance
-😱 Suspense
-🔥 Motivation
-🌍 Évasion
-😢 Émotion
-
-Durée :
-[ Court ] [ Moyen ] [ Long ]
-
-Genre :
-[ Thriller ] [ Romance ] [ Fantasy ] [ Développement personnel ]
-```
-
-Puis bouton :
-
-```text
-[ Me recommander ]
-```
-
-Cette option est très bien pour la maquette, car elle est visuelle et facile à comprendre.
-
----
-
-# Écran de résultats Mukeme Lecture
-
-Après la recherche, Mukeme affiche une sélection personnalisée.
-
-```text
-Sélection personnalisée par Mukeme
-
-D’après ton envie :
-“histoire courte, sombre, avec du suspense”
-
-1. La Nuit Rouge
-Score de correspondance : 94 %
-
-Pourquoi ce livre ?
-✓ Ambiance sombre
-✓ Suspense important
-✓ Lecture courte
-✓ Fin surprenante
-
-[ Lire ]
-[ Ajouter à ma liste ]
-
-2. Les Ombres de Minuit
-Score de correspondance : 88 %
-
-Pourquoi ce livre ?
-✓ Thriller psychologique
-✓ Personnages mystérieux
-✓ Rythme rapide
-
-[ Lire ]
-[ Ajouter à ma liste ]
-```
-
-Le plus important dans cet écran, c’est la partie :
-
-```text
-Pourquoi ce livre ?
-```
-
-C’est cette section qui rend l’IA visible. Sans ça, l’utilisateur voit juste une liste de livres comme dans une application classique.
-
----
-
-# Écran détail d’un livre recommandé
-
-Quand l’utilisateur clique sur un livre, tu peux rappeler pourquoi Mukeme le recommande.
-
-```text
-La Nuit Rouge
-Kevin Fonkou
-
-Genre : Thriller
-Durée estimée : 2h30
-Note : 4.7
-Lectures : 1 240
-
-Résumé :
-Une jeune femme découvre que la disparition de son frère cache une vérité plus sombre...
-
-Pourquoi Mukeme te le recommande :
-✓ Tu as demandé une histoire courte
-✓ Tu aimes les ambiances sombres
-✓ Le livre contient du suspense
-✓ Les lecteurs apprécient sa fin surprenante
-
-[ Lire maintenant ]
-[ Ajouter aux favoris ]
-[ Partager ]
-```
-
-Cette logique est très professionnelle, car l’IA est explicable. Elle ne dit pas seulement “voici des livres”. Elle explique pourquoi.
-
----
-
-# Ce que tu peux dire à ton tuteur
-
-Tu peux présenter cette IA comme ça :
-
-> Dans l’espace lecteur, j’intègre Mukeme comme un assistant de recommandation. L’utilisateur peut exprimer une envie de lecture en langage naturel, par exemple “je veux un livre court avec du suspense”. L’IA analyse l’intention, l’humeur, le genre et la durée souhaitée, puis propose des livres adaptés avec un score de correspondance et une explication du type “pourquoi ce livre”. Cela améliore la découverte de contenus et rend l’expérience plus personnalisée qu’une simple recherche par titre ou catégorie.
-
----
-
-# 2. IA côté auteur : assistant d’écriture et reformulation
-
-## Idée générale
-
-Dans l’espace auteur, Mukeme aide l’auteur pendant l’écriture.
-
-L’auteur écrit son chapitre, sélectionne un passage, puis demande à Mukeme de l’aider.
-
-Mukeme peut :
-
-* reformuler un passage ;
-* améliorer le style ;
-* corriger les répétitions ;
-* rendre une phrase plus fluide ;
-* rendre un dialogue plus naturel ;
-* rendre un passage plus émotionnel ;
-* proposer un titre de chapitre ;
-* corriger certaines maladresses.
-
-Mais l’auteur garde toujours le contrôle. Mukeme propose, l’auteur accepte ou refuse.
-
----
-
-# Comment ça se présente dans l’application
-
-L’IA d’écriture doit être surtout visible dans la **version desktop**, parce que l’écriture longue se fait mieux sur ordinateur.
-
-Dans la navigation desktop :
-
-```text
-Tableau de bord
-Mes manuscrits
-Éditeur
-Bêta-retours
-Publication
-Royalties
-Paramètres
-```
-
-L’utilisateur va dans :
-
-```text
-Éditeur
-```
-
----
-
-# Écran éditeur desktop
-
-L’écran doit ressembler à un vrai outil d’écriture.
-
-```text
----------------------------------------------------------
-| Plumora                         | La Nuit Rouge       |
----------------------------------------------------------
-| Chapitres        | Zone d’écriture             | Mukeme |
-|------------------|-----------------------------|--------|
-| + Ajouter        | Chapitre 3 : Le départ      |        |
-| Chapitre 1       |                             | Assistant |
-| Chapitre 2       | Elle marchait seule dans... | d’écriture |
-| Chapitre 3       |                             |        |
-| Chapitre 4       |                             | [Reformuler] |
-|                  |                             | [Améliorer] |
-|                  |                             | [Corriger] |
----------------------------------------------------------
-| Statut : Brouillon | Sauvegardé automatiquement |
----------------------------------------------------------
-```
-
-Tu peux organiser l’écran en 3 zones :
-
-## Zone gauche : structure du livre
-
-```text
-Chapitres
-
-+ Ajouter chapitre
-
-Chapitre 1 — Rencontre
-Chapitre 2 — Le secret
-Chapitre 3 — Le départ
-Chapitre 4 — La révélation
-```
-
-## Zone centrale : écriture
-
-```text
-Chapitre 3 : Le départ
-
-Elle marchait seule dans la nuit. Elle était très triste et elle ne savait pas quoi faire...
-```
-
-## Zone droite : assistant Mukeme
-
-```text
-Mukeme — Assistant d’écriture
-
-Sélectionne un passage pour obtenir de l’aide.
-
-Actions rapides :
-[ Reformuler ]
-[ Améliorer le style ]
-[ Corriger les répétitions ]
-[ Rendre plus émotionnel ]
-[ Rendre le dialogue naturel ]
-```
-
----
-
-# Workflow visuel de Mukeme Écriture
-
-## Étape 1 — L’auteur écrit
-
-Il est dans l’éditeur.
-
-```text
-Elle était très triste et elle marchait très lentement dans la rue.
-```
-
-## Étape 2 — Il sélectionne un passage
-
-Dans la maquette, tu peux montrer le passage surligné.
-
-```text
-[Elle était très triste et elle marchait très lentement dans la rue.]
-```
-
-## Étape 3 — Il clique sur une action Mukeme
-
-Dans le panneau de droite :
-
-```text
-Que veux-tu faire avec ce passage ?
-
-[ Reformuler ]
-[ Améliorer le style ]
-[ Corriger les répétitions ]
-[ Rendre plus émotionnel ]
-```
-
-## Étape 4 — Mukeme propose une version
-
-```text
-Suggestion de Mukeme
-
-Version proposée :
-“Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait.”
-
-Explication :
-- phrase plus fluide
-- suppression de la répétition “très”
-- émotion plus marquée
-
-[ Accepter ]
-[ Modifier ]
-[ Ignorer ]
-```
-
-## Étape 5 — L’auteur décide
-
-Si l’auteur clique sur **Accepter**, le texte est remplacé.
-
-S’il clique sur **Modifier**, il peut ajuster la suggestion.
-
-S’il clique sur **Ignorer**, rien ne change.
-
-C’est très important pour la maquette : il faut montrer que l’IA ne publie rien et ne modifie rien automatiquement.
-
----
-
-# Variante mobile pour Mukeme Écriture
-
-Sur mobile, l’écriture peut exister, mais plutôt en version simplifiée.
-
-Dans l’onglet **Écrire**, l’auteur peut ouvrir un manuscrit et faire de petites corrections.
-
-Exemple mobile :
-
-```text
-Écrire
-
-Mes manuscrits
-
-La Nuit Rouge
-Statut : Brouillon
-[ Continuer ]
-
-Les Ombres de Minuit
-Statut : En bêta-lecture
-[ Voir les retours ]
-```
-
-Puis écran chapitre :
-
-```text
-Chapitre 3 : Le départ
-
-[ Texte du chapitre ]
-
-[ Demander à Mukeme ]
-```
-
-Quand il clique :
-
-```text
-Mukeme
-
-Que veux-tu faire ?
-[ Reformuler ]
-[ Améliorer ]
-[ Corriger les répétitions ]
-
-Suggestion :
-...
-
-[ Accepter ] [Ignorer]
-```
-
-Mais pour ton MVP et ta maquette RNCP, je mettrais surtout la puissance d’écriture sur desktop.
-
----
-
-# Où placer les deux IA dans la navigation ?
-
-Tu ne dois pas créer un onglet “IA” dans la navigation principale.
-
-Ça ferait gadget.
-
-Tu dois intégrer Mukeme dans les bons endroits :
-
-```text
-Mukeme Lecture
-→ Onglet Découvrir
-→ Barre de recherche intelligente
-→ Résultats recommandés
-→ Fiche livre
-
-Mukeme Écriture
-→ Onglet Écrire
-→ Éditeur desktop
-→ Panneau latéral d’aide à l’écriture
-```
-
-Donc la navigation reste simple :
-
-```text
-Accueil | Découvrir | Écrire | Bibliothèque | Profil
-```
-
-Et l’IA apparaît naturellement dans :
-
-* **Découvrir** pour les lecteurs ;
-* **Écrire / Éditeur** pour les auteurs.
-
----
-
-# Cinématique complète avec IA intégrée
-
-Voici comment tu peux visualiser Plumora avec l’IA intégrée.
-
-## Parcours lecteur avec Mukeme Lecture
-
-```text
-Connexion
-→ Accueil
-→ Découvrir
-→ L’utilisateur écrit son envie dans la barre intelligente
-→ Mukeme analyse la demande
-→ Résultats personnalisés
-→ L’utilisateur lit “Pourquoi ce livre ?”
-→ Il ouvre la fiche livre
-→ Il lit le livre
-→ Il ajoute aux favoris ou laisse un avis
-```
-
-Visuellement :
-
-```text
-Découvrir
-↓
-Barre : “Je veux un livre court avec suspense”
-↓
-Bouton : “Rechercher avec Mukeme”
-↓
-Cartes de résultats
-↓
-Score + Pourquoi ce livre
-↓
-Fiche livre
-↓
-Lire
-```
-
----
-
-## Parcours auteur avec Mukeme Écriture
-
-```text
-Connexion
-→ Accueil
-→ Écrire
-→ Mes manuscrits
-→ Ouvrir un livre
-→ Ouvrir l’éditeur desktop
-→ Sélectionner un passage
-→ Demander à Mukeme
-→ Choisir “Reformuler”
-→ Lire la suggestion
-→ Accepter / Modifier / Ignorer
-→ Sauvegarder
-→ Envoyer en bêta-lecture
-```
-
-Visuellement :
-
-```text
-Écrire
-↓
-Mes manuscrits
-↓
-Éditeur
-↓
-Sélection d’un passage
-↓
-Panneau Mukeme
-↓
-Suggestion
-↓
-Accepter / Modifier / Ignorer
-```
-
----
-
-# Comment le montrer dans ta maquette Figma
-
-Pour que ton tuteur comprenne rapidement, fais ces écrans IA en priorité.
-
-## Écran IA 1 — Découvrir avec barre intelligente
-
-À faire absolument.
-
-```text
-Découvrir
-
-[ Je veux une histoire courte, sombre, avec du suspense... ]
-
-Suggestions :
-[ Romance ] [ Thriller ] [ Court ] [ Émotion ] [ Fantasy ]
-
-[ Rechercher avec Mukeme ]
-```
-
-## Écran IA 2 — Résultats recommandés
-
-À faire absolument.
-
-```text
-Sélection personnalisée par Mukeme
-
-La Nuit Rouge — 94 %
-
-Pourquoi ce livre ?
-- Suspense
-- Lecture courte
-- Ambiance sombre
-
-[ Lire ] [Ajouter]
-```
-
-## Écran IA 3 — Éditeur desktop avec panneau Mukeme
-
-À faire absolument.
-
-```text
-Chapitres | Zone d’écriture | Mukeme Assistant
-```
-
-## Écran IA 4 — Suggestion de reformulation
-
-À faire absolument.
-
-```text
-Passage sélectionné
-→ Suggestion Mukeme
-→ Accepter / Modifier / Ignorer
-```
-
-Avec seulement ces 4 écrans, on comprend parfaitement l’intégration IA.
-
----
-
-# Détail important pour le développement
-
-Même si tu es encore sur la maquette, il faut déjà penser à la structure future.
-
-## Pour Mukeme Lecture
-
-Côté backend Spring Boot, tu peux prévoir un endpoint :
-
-```text
-POST /api/ai/book-recommendations
-```
-
-Entrée :
-
-```json
-{
-  "query": "Je veux une histoire courte avec du suspense",
-  "mood": "suspense",
-  "duration": "court",
-  "genres": ["thriller"]
-}
-```
-
-Sortie :
-
-```json
-{
-  "recommendations": [
-    {
-      "bookId": 1,
-      "title": "La Nuit Rouge",
-      "matchScore": 94,
-      "reasons": [
-        "Correspond à ton envie de suspense",
-        "Lecture courte",
-        "Ambiance sombre"
-      ]
-    }
-  ]
-}
-```
-
-## Pour Mukeme Écriture
-
-Endpoint possible :
-
-```text
-POST /api/ai/writing-assistant
-```
-
-Entrée :
-
-```json
-{
-  "action": "REFORMULATE",
-  "selectedText": "Elle était très triste et elle marchait très lentement dans la rue.",
-  "tone": "émotionnel",
-  "chapterContext": "Chapitre 3 : Le départ"
-}
-```
-
-Sortie :
-
-```json
-{
-  "suggestion": "Elle avançait lentement dans la rue, le cœur lourd, comme si chaque pas lui coûtait.",
-  "explanation": [
-    "Phrase plus fluide",
-    "Suppression des répétitions",
-    "Émotion renforcée"
-  ]
-}
-```
-
-Même si tu ne développes pas encore tout, cette vision t’aide à faire une maquette réaliste.
-
----
-
-# Comment expliquer la valeur ajoutée IA
-
-Tu peux dire :
-
-> L’IA dans Plumora intervient à deux moments clés du cycle de vie du livre. Côté lecteur, Mukeme facilite la découverte de livres grâce à une recherche intelligente basée sur les envies, l’humeur et les préférences. Côté auteur, Mukeme assiste l’écriture en proposant des reformulations et améliorations stylistiques, tout en laissant l’auteur garder le contrôle sur chaque modification.
-
-Et encore mieux :
-
-> J’ai volontairement limité l’IA à deux cas d’usage pour éviter un effet gadget. Les deux intégrations répondent à des besoins réels : trouver plus facilement un livre adapté et aider l’auteur à améliorer son manuscrit pendant l’écriture.
-
----
-
-# Résumé visuel final
-
-Dans ta maquette, tu dois retenir ça :
-
-```text
-MUKEME LECTURE
-
-Découvrir
-→ Barre de recherche intelligente
-→ Filtres d’envie/humeur
-→ Résultats personnalisés
-→ Score de correspondance
-→ Pourquoi ce livre ?
-```
-
-```text
-MUKEME ÉCRITURE
-
-Écrire
-→ Éditeur desktop
-→ Sélection d’un passage
-→ Actions IA
-→ Suggestion
-→ Accepter / Modifier / Ignorer
-```
-
-C’est exactement cette logique qui va rendre ta maquette claire, moderne et prête pour le développement.
-
-
+19-
 
 
 
