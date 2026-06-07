@@ -312,7 +312,37 @@ Le budget total prévisionnel du MVP est donc de 31 540 €.
 
 Petite correction à faire sur ta slide : dans le tableau du haut, écris “MOA / Chef de projet” au lieu de “MOA / C hef de projet”.
 
-19-
+19- Pour conclure ce cadrage, je présente maintenant les axes de solution préconisés et la décision proposée au client.
+
+
+Voici un texte prêt à dire :
+
+Cette slide présente les axes de solution préconisés pour Plumora.
+Après l’analyse du besoin et des contraintes du projet, je recommande de lancer Plumora sous forme de MVP, avec une architecture moderne, sécurisée et évolutive.
+
+Le premier axe est l’architecture évolutive.
+L’objectif est de séparer clairement le frontend Flutter, le backend Spring Boot, la base PostgreSQL, Docker et les services externes. Cette séparation permet de faciliter la maintenance, les tests et les évolutions futures.
+
+Le deuxième axe est la plateforme multi-rôles.
+Plumora doit répondre aux besoins de plusieurs profils : auteurs, lecteurs, bêta-lecteurs et administrateurs. Chaque rôle dispose d’un parcours adapté à son usage.
+
+Le troisième axe est l’IA maîtrisée.
+Plumo accompagne l’auteur dans l’écriture et aide à la recommandation de livres, mais l’IA ne modifie pas automatiquement les contenus. L’utilisateur garde toujours le contrôle.
+
+Le quatrième axe est le catalogue enrichi.
+Plumora ne proposera pas seulement les livres créés sur la plateforme. Le catalogue sera aussi enrichi avec des livres du domaine public, ce qui permet d’offrir plus de contenu aux lecteurs dès le démarrage.
+
+Ces axes répondent directement à la problématique du projet : concevoir une plateforme multi-supports intégrant l’IA pour accompagner l’écriture, la publication et la découverte personnalisée de livres.
+
+
+
+
+
+Version courte :
+
+Cette slide présente la solution préconisée pour Plumora.
+Je recommande de lancer le projet sous forme de MVP, avec quatre axes principaux : une architecture évolutive, une plateforme multi-rôles, une IA maîtrisée et un catalogue enrichi.
+L’objectif est de proposer une première version réaliste, sécurisée et capable d’évoluer progressivement
 
 
 
