@@ -262,23 +262,85 @@ Cette slide présente l’architecture backend de Plumora.
 Le backend est organisé en quatre couches : presentation, application, domain et infrastructure.
 La couche presentation expose les contrôleurs REST et les DTO. La couche application orchestre les cas d’usage. La couche domain contient les règles métier. La couche infrastructure gère PostgreSQL, les API externes et l’IA Ollama.
 Cette séparation permet de sécuriser les échanges, de faciliter les tests et de rendre le projet évolutif.
-17- L’estimation totale est de 61 jours-homme.
-Cela signifie 61 jours de travail cumulés, répartis entre plusieurs profils : chef de projet, architecte, UI/UX designer, développeur backend, développeur front Flutter, développeur IA, QA/testeur et DevOps.
 
-Les phases prises en compte sont le cadrage, la conception, le développement, l’intégration, les tests et recette, le déploiement et le pilotage.
+17- Oui, ta slide est cohérente maintenant. Elle montre une estimation de charge en jours-homme, répartie par rôle et par phase projet.
 
-On voit que la phase la plus chargée est le développement, avec 25 jours-homme. C’est logique, car c’est la phase où sont développées les fonctionnalités principales : authentification, gestion des livres, chapitres, catalogue, bêta-lecture, IA Plumo et frontend Flutter.
+L’idée à faire comprendre au jury est simple :
 
-Le rôle le plus sollicité est le développeur backend, avec 21 jours-homme. Cela s’explique par le fait que le backend porte la logique métier, la sécurité, les API REST, la gestion des données et les intégrations avec les services externes.
+Cette estimation montre l’effort nécessaire pour réaliser un MVP de Plumora en contexte équipe. Elle permet d’identifier les phases les plus consommatrices, les rôles les plus sollicités et les points de vigilance en matière de charge.
 
-Cette estimation reste une estimation macro, adaptée à un MVP en contexte équipe. Elle permet de cadrer l’effort nécessaire, d’identifier les phases les plus importantes et de préparer ensuite le budget prévisionnel.
+Explication détaillée de ta slide
 
-Version courte à mémoriser :
+Ton estimation est organisée par rôle :
 
-Cette slide présente l’estimation de charge du MVP Plumora.
-La charge totale est estimée à 61 jours-homme, répartis par rôle et par phase projet.
-La phase la plus chargée est le développement avec 25 jours-homme, et le rôle le plus sollicité est le développeur backend avec 21 jours-homme.
-Cette estimation permet de justifier l’effort nécessaire et sert de base au budget prévisionnel.
+PO / Chef de projet : cadrage, validation du besoin, pilotage.
+Architecte : conception technique, choix d’architecture, appui au déploiement.
+UI/UX Designer : conception des parcours et maquettes.
+Dev Backend : API REST, logique métier, sécurité, base de données, intégration.
+Dev Front Flutter : application mobile/desktop, écrans, navigation, consommation API.
+Dev IA : intégration d’Ollama, logique de recommandation ou assistance à l’écriture.
+QA / Testeur : recette fonctionnelle globale.
+DevOps : environnement, Docker, déploiement, supervision technique.
+
+Ensuite, les colonnes représentent les grandes phases du projet :
+
+Cadrage : clarification du besoin, périmètre, acteurs, risques.
+Conception : architecture, maquettes, modèle de données, choix techniques.
+Développement : réalisation des fonctionnalités du MVP.
+Intégration : connexion front/back, API, IA, sources externes.
+Tests / Recette : validation technique et fonctionnelle.
+Déploiement : mise en environnement, Docker, publication technique.
+Pilotage : suivi projet, coordination, ajustements.
+Points importants à faire ressortir
+
+Le total est de 101 jours-homme.
+Cela ne veut pas forcément dire 101 jours calendaires. Cela veut dire une charge totale équivalente à 101 jours de travail répartis entre plusieurs rôles.
+
+La phase la plus chargée est le développement, avec 44 JH. C’est logique, car Plumora demande plusieurs fonctionnalités : authentification, gestion des livres, publication, bêta-lecture, catalogue, administration et intégration de l’IA.
+
+Le rôle le plus sollicité est le Dev Backend, avec 33 JH. C’est cohérent, car le backend porte les éléments les plus critiques : sécurité, API REST, logique métier, base de données, intégration des sources externes et connexion à l’IA.
+
+Les tests / recette représentent 17 JH. Ce n’est pas seulement le QA qui teste : les développeurs participent aussi aux tests techniques. Le backend a plus de charge de test que le frontend, car il doit vérifier les API, la sécurité, les règles métier, les accès aux données et les erreurs.
+
+Texte complet à dire à l’oral
+
+Tu peux dire :
+
+Cette slide présente l’estimation de la charge de travail pour le MVP de Plumora.
+L’estimation est exprimée en jours-homme, c’est-à-dire en effort de travail, et non en durée calendaire exacte.
+Elle est répartie par rôle et par phase projet afin de visualiser les zones les plus consommatrices.
+
+Le total estimé est de 101 jours-homme. Cette charge correspond à un MVP en contexte équipe, avec une estimation macro.
+La phase la plus chargée est le développement, avec 44 jours-homme. C’est cohérent, car cette phase concentre la réalisation des principales fonctionnalités : gestion des livres, authentification, publication, bêta-lecture, catalogue, administration et intégration de l’IA.
+
+Le rôle le plus sollicité est le développeur backend, avec 33 jours-homme. Cela s’explique par le fait que le backend porte la logique métier, la sécurité, les API REST, l’accès à la base de données PostgreSQL, les imports contrôlés depuis les sources externes et l’appel à l’IA Plumo.
+
+Le frontend Flutter représente aussi une charge importante, avec 23 jours-homme, car l’application doit couvrir les parcours mobile et desktop, les écrans utilisateurs, la navigation et la communication avec le backend.
+
+Les tests et la recette représentent 17 jours-homme. J’ai réparti cette charge entre le QA, le backend, le frontend, l’IA et le DevOps, car la qualité ne repose pas uniquement sur le testeur. Les développeurs participent aux tests techniques, tandis que le QA se concentre sur la validation fonctionnelle globale.
+
+Enfin, cette estimation permet de montrer que le projet est réalisable, mais qu’il nécessite une attention particulière sur la phase de développement, l’intégration front/back et la validation des fonctionnalités critiques.
+
+Version plus courte si tu veux aller vite
+
+Cette estimation présente la charge du MVP Plumora en jours-homme. Le total est de 101 JH.
+La phase la plus lourde est le développement avec 44 JH, car elle concentre la réalisation des fonctionnalités principales.
+Le rôle le plus sollicité est le développeur backend avec 33 JH, car il porte la sécurité, les API, la logique métier, la base de données, les imports externes et l’intégration IA.
+Les tests et la recette représentent 17 JH et sont répartis entre QA, backend, frontend, IA et DevOps, car la qualité doit être vérifiée à plusieurs niveaux.
+Cette estimation reste une charge macro pour un MVP en contexte équipe.
+
+Phrase importante si le jury te demande “pourquoi ce n’est pas un planning ?”
+
+Tu réponds :
+
+Ici, je ne présente pas un planning détaillé, mais une estimation de charge. Le but est d’évaluer l’effort nécessaire par rôle et par phase. Le planning viendrait ensuite pour organiser ces charges dans le temps selon les disponibilités de l’équipe.
+
+Phrase si le jury te demande “pourquoi le backend est plus chargé ?”
+
+Tu réponds :
+
+Le backend est plus chargé parce qu’il centralise les traitements critiques : authentification, droits d’accès, règles métier, API REST, base de données, IA et services externes. C’est donc la partie qui porte le plus de complexité technique et fonctionnelle.
+
 
 18- Tu peux présenter cette slide comme le passage entre charge de travail et budget prévisionnel.
 
@@ -348,4 +410,302 @@ L’objectif est de proposer une première version réaliste, sécurisée et cap
 
 
 
+
+
+
+
+
+
+
+
+
+
+22- budget 
+
+Oui. Pour ton budget prévisionnel, l’idée est d’expliquer que tu pars de ton estimation de charge en jours-homme, puis que tu valorises cette charge avec un TJM différent selon les profils.
+
+Le budget n’est donc pas inventé : il est directement lié à ta charge de travail.
+
+1. Logique générale du budget
+
+Tu peux expliquer comme ça :
+
+Le budget prévisionnel est calculé à partir de l’estimation de charge. Chaque rôle a une charge exprimée en jours-homme, puis cette charge est multipliée par un TJM, c’est-à-dire un taux journalier moyen.
+Cela permet d’obtenir un coût estimé par profil, puis un coût global du projet.
+
+La formule est simple :
+
+Coût estimé = Charge JH × TJM
+
+Exemple :
+
+Dev Backend = 33 JH × 500 € = 16 500 €
+
+Donc ton tableau est cohérent parce qu’il reprend les rôles de ton estimation de charge.
+
+2. Explication par rôle
+MOA / Chef de projet — 7 JH — 3 850 €
+
+Le chef de projet intervient surtout sur le cadrage et le pilotage.
+
+Il sert à :
+
+formaliser le besoin
+suivre l’avancement
+coordonner les acteurs
+valider les choix
+
+Tu peux dire :
+
+La charge du chef de projet est de 7 jours-homme, principalement sur le cadrage et le pilotage. Son rôle est de structurer le besoin, suivre l’avancement et garantir que le projet reste aligné avec les objectifs du MVP.
+
+Architecte — 8 JH — 5 200 €
+
+L’architecte a un TJM plus élevé parce que son rôle est stratégique.
+
+Il intervient sur :
+
+choix d’architecture
+sécurité
+cohérence technique
+structure backend
+déploiement
+
+Tu peux dire :
+
+L’architecte représente 8 jours-homme. Son TJM est plus élevé car il intervient sur des décisions structurantes : architecture, sécurité, choix techniques et cohérence globale de la solution.
+
+UI/UX Designer — 7 JH — 3 150 €
+
+Le designer intervient principalement en conception.
+
+Il travaille sur :
+
+parcours utilisateurs
+maquettes
+ergonomie
+expérience mobile et desktop
+
+Tu peux dire :
+
+Le profil UI/UX est estimé à 7 jours-homme. Il intervient surtout en phase de conception pour définir les parcours des auteurs, lecteurs, bêta-lecteurs et administrateurs.
+
+Dev Backend — 33 JH — 16 500 €
+
+C’est le poste le plus important du budget.
+
+C’est logique parce que le backend porte :
+
+API REST
+sécurité
+rôles et droits
+logique métier
+base de données
+imports externes
+connexion IA
+
+Tu peux dire :
+
+Le développeur backend est le poste le plus coûteux, avec 33 jours-homme, soit 16 500 €. C’est cohérent car le backend porte la majorité des traitements critiques : API REST, sécurité, logique métier, accès PostgreSQL, intégration des sources externes et appel à l’IA Plumo.
+
+Dev Front Flutter — 23 JH — 10 350 €
+
+Le front est aussi important, mais moins lourd que le backend.
+
+Il couvre :
+
+écrans mobile / desktop
+navigation
+formulaires
+connexion aux APIs
+affichage catalogue
+parcours utilisateur
+
+Tu peux dire :
+
+Le développement Flutter représente 23 jours-homme, soit 10 350 €. Cette charge couvre les écrans, la navigation, les formulaires, l’expérience mobile et desktop, ainsi que la communication avec les APIs backend.
+
+Dev IA — 8 JH — 4 800 €
+
+Le dev IA est ciblé sur un MVP, donc la charge reste limitée.
+
+Il sert à :
+
+intégration Ollama
+requêtes IA
+réponses Plumo
+aide à l’écriture
+recommandation
+tests des réponses IA
+
+Tu peux dire :
+
+Le développement IA est estimé à 8 jours-homme. L’objectif n’est pas de créer un modèle d’IA, mais d’intégrer Ollama pour fournir une assistance à l’écriture et à la recommandation dans le cadre du MVP.
+
+QA / Testeur — 8 JH — 2 800 €
+
+Le QA valide le bon fonctionnement global.
+
+Il vérifie :
+
+parcours utilisateur
+recette fonctionnelle
+non-régression
+cas d’erreur
+conformité au besoin
+
+Tu peux dire :
+
+Le testeur représente 8 jours-homme. Il intervient principalement sur la recette fonctionnelle globale afin de vérifier que les parcours principaux du MVP fonctionnent correctement.
+
+DevOps — 7 JH — 3 850 €
+
+Le DevOps intervient surtout sur l’environnement et le déploiement.
+
+Il couvre :
+
+Docker
+environnement de déploiement
+configuration
+mise en service
+suivi technique
+
+Tu peux dire :
+
+Le DevOps est estimé à 7 jours-homme. Sa charge concerne principalement la dockerisation, la préparation de l’environnement et le déploiement reproductible de l’application.
+
+3. Pourquoi les TJM sont différents ?
+
+C’est important à expliquer, car tu avais raison : mettre 400 € pour tout le monde n’était pas très réaliste.
+
+Tu peux dire :
+
+Les TJM ne sont pas identiques car les profils n’ont pas le même niveau d’expertise, ni le même niveau de responsabilité. Par exemple, l’architecte et le développeur IA ont un TJM plus élevé car ils interviennent sur des sujets plus spécialisés. Le QA a un TJM plus faible car son intervention est davantage centrée sur la validation fonctionnelle.
+
+Tes TJM sont cohérents :
+
+Architecte : 650 €
+Dev IA : 600 €
+Chef de projet / DevOps : 550 €
+Dev Backend : 500 €
+Dev Front Flutter : 450 €
+UI/UX : 450 €
+QA : 350 €
+4. Coût total du développement
+
+Ton total est :
+
+101 JH
+Coût total estimé : 50 500 €
+TJM moyen : 500 €
+
+Tu peux dire :
+
+Le coût total du développement est estimé à 50 500 €. Ce montant correspond uniquement à la valorisation des charges humaines du MVP. Il ne comprend pas encore les coûts techniques récurrents comme l’hébergement, le nom de domaine ou les comptes développeur.
+
+5. Explication des coûts techniques prévisionnels
+
+Si tu as aussi une partie “coûts techniques”, tu peux l’expliquer séparément.
+
+Exemples cohérents :
+
+Hébergement backend + base de données : 600 € / an
+Nom de domaine : 15 € / an
+Compte Google Play Developer : 25 € une fois
+Outils / monitoring / stockage : 300 € / an
+Marge d’imprévus : 1 000 €
+
+Tu peux dire :
+
+En complément du coût humain, j’ai identifié des coûts techniques prévisionnels. Ils couvrent l’hébergement du backend et de PostgreSQL, le nom de domaine, le compte développeur Google Play, les outils de suivi technique et une marge d’imprévus.
+Ces coûts restent limités car le projet est présenté comme un MVP et non comme une infrastructure de production à grande échelle.
+
+6. Texte complet à dire à l’oral
+
+Tu peux dire exactement ceci :
+
+Cette slide présente le budget prévisionnel du projet Plumora.
+Le calcul est directement basé sur l’estimation de charge précédente. Pour chaque rôle, j’ai repris la charge en jours-homme, puis je l’ai multipliée par un TJM, c’est-à-dire un taux journalier moyen.
+
+Le coût total du développement est estimé à 50 500 € pour 101 jours-homme. Ce budget correspond à un MVP en contexte équipe, avec une estimation macro.
+
+Le poste le plus important est le développement backend, avec 33 jours-homme et un coût estimé à 16 500 €. C’est cohérent car le backend porte les éléments les plus critiques : sécurité, API REST, logique métier, base de données PostgreSQL, imports depuis les sources externes et intégration de l’IA Plumo.
+
+Le développement Flutter représente 23 jours-homme, soit 10 350 €. Cette charge couvre les écrans mobile et desktop, les parcours utilisateurs, la navigation et la communication avec le backend.
+
+Les autres profils interviennent de manière plus ciblée : le chef de projet sur le cadrage et le pilotage, l’architecte sur la conception technique, le designer sur l’expérience utilisateur, le Dev IA sur l’intégration d’Ollama, le QA sur la recette fonctionnelle, et le DevOps sur l’environnement et le déploiement.
+
+Les TJM sont volontairement différenciés selon les profils, car les niveaux de responsabilité et d’expertise ne sont pas les mêmes. L’architecte et le développeur IA ont un TJM plus élevé, tandis que le QA a un TJM plus faible.
+
+Enfin, ce budget de développement doit être complété par des coûts techniques prévisionnels, comme l’hébergement, le nom de domaine, le compte Google Play Developer, les outils de suivi et une marge d’imprévus.
+
+Version courte à retenir
+
+Le budget prévisionnel est calculé à partir de la charge estimée.
+Chaque rôle a une charge en jours-homme, multipliée par un TJM adapté au profil.
+Le total développement est de 101 JH pour un coût estimé à 50 500 €.
+Le poste principal est le backend, car il concentre la sécurité, les APIs, la logique métier, la base de données, les imports externes et l’intégration IA.
+Ce budget reste une estimation macro pour un MVP Plumora en contexte équipe.
+
+
+
+
+
+
+
+
+
+
+
+
+preco: 
+
+
+Oui, pour cette slide, tu dois expliquer que tu arrives à ta recommandation finale après tout ce que tu as présenté avant : besoins, risques, faisabilité, architecture, charge et budget.
+
+L’objectif est de montrer au jury que tu ne présentes pas juste des fonctionnalités, mais une préconisation argumentée.
+
+Ce que tu peux dire à l’oral
+
+Cette slide présente les axes de solution que je préconise pour le projet Plumora.
+Après avoir analysé le besoin, les risques, la faisabilité technique, la charge et le budget, ma recommandation est de lancer Plumora sous forme de MVP.
+
+L’objectif est de partir sur une solution moderne, sécurisée et évolutive, capable de supporter les principaux usages du projet : l’écriture, la lecture, la publication, la bêta-lecture et l’assistance IA avec Plumo.
+
+Ensuite, tu présentes les 4 axes.
+
+Axe 1 — Architecture évolutive
+
+Le premier axe est l’architecture évolutive.
+Le choix proposé repose sur un frontend Flutter, un backend Spring Boot, une base PostgreSQL, Docker et des services externes isolés.
+L’idée est d’avoir une architecture claire, maintenable et capable d’évoluer plus tard sans tout reconstruire.
+
+Axe 2 — Plateforme multi-rôles
+
+Le deuxième axe est la plateforme multi-rôles.
+Plumora ne s’adresse pas à un seul utilisateur, mais à plusieurs profils : auteur, lecteur, bêta-lecteur et administrateur.
+Chaque rôle dispose d’un parcours adapté à ses besoins : écrire, lire, commenter, publier, modérer ou gérer les contenus.
+
+Axe 3 — IA maîtrisée
+
+Le troisième axe est l’IA maîtrisée.
+L’IA Plumo doit assister l’utilisateur, notamment pour l’aide à l’écriture et la recommandation de livres.
+Mais elle ne modifie pas automatiquement les contenus : l’utilisateur garde toujours le contrôle.
+Cela permet d’intégrer l’IA de manière utile, mais encadrée.
+
+Axe 4 — Catalogue enrichi
+
+Le quatrième axe est le catalogue enrichi.
+Plumora peut proposer à la fois des livres créés directement sur la plateforme et des livres du domaine public provenant de sources externes comme Gutendex ou Open Library.
+Cela permet d’enrichir le catalogue dès le lancement du MVP.
+
+Conclusion orale de la slide
+
+Ces quatre axes permettent de répondre à la problématique du projet : concevoir une plateforme multi-supports, sécurisée, évolutive et enrichie par l’IA.
+Ma préconisation est donc de valider ce cadrage et de lancer la phase de conception et de développement du MVP.
+
+Version courte à retenir
+
+Cette slide résume ma préconisation finale. Je recommande de lancer Plumora sous forme de MVP autour de quatre axes : une architecture évolutive, une plateforme multi-rôles, une IA maîtrisée et un catalogue enrichi.
+Ces axes permettent de répondre au besoin identifié tout en gardant une solution réaliste, sécurisée et évolutive.
 
