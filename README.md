@@ -1,3 +1,68 @@
+
+Fond principal
+Blanc cassé
+#F8F7F3
+Texte principal
+Noir doux
+#1F1F1F
+Couleur de marque
+Violet encre
+#4B2E83
+Couleur secondaire
+Bleu nuit
+#16213E
+Accent léger
+Doré doux
+#C9A227
+Fond de cartes
+Blanc
+#FFFFFF
+Bordures / séparateurs
+Gris clair
+#E5E2DA
+
+
+
+
+
+Je te conseille cette combinaison :
+Fond clair + texte noir + violet encre + bleu nuit + petite touche dorée.
+Exemple :
+arrière-plan de l’application : blanc cassé ;
+cartes de livres : blanc ;
+titres : bleu nuit ou noir ;
+boutons principaux : violet encre ;
+éléments importants : doré doux ;
+textes secondaires : gris foncé ;
+bordures : gris clair.
+
+
+2 
+
+
+
+Une interface claire, élégante et littéraire, avec un fond beige papier, du texte noir doux, un marron chaleureux pour les actions principales et une touche prune pour l’identité Plumo / IA.
+
+
+Fond principal : #F8F5EF
+Blanc cassé / papier : #FFFDF8
+Texte principal : #1F1F1F
+Marron doux : #8B5E3C
+Marron clair : #C9A27E
+Prune / accent : #6D3A5D
+Gris texte secondaire : #6B6B6B
+Bordures légères : #E6DED3
+
+
+
+
+
+
+
+
+
+
+
 1- Bonjour, je vais vous présenter le cadrage du projet Plumora, une plateforme destinée aux auteurs, lecteurs et bêta-lecteurs
 
 2- Pour structurer cette présentation, je vais d’abord présenter le contexte et les objectifs du projet, puis la cartographie des acteurs impliqués. Ensuite, je détaillerai l’audit, les risques, la veille et les choix techniques. Je terminerai par l’architecture proposée, le chiffrage et les préconisations.
