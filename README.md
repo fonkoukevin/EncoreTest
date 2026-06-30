@@ -1,3 +1,89 @@
+1 
+
+Fond principal : #11100E
+Fond secondaire : #1A1714
+Carte / surface : #221E1A
+Texte principal : #F5F1E8
+Texte secondaire : #B8AEA2
+Bordure légère : #332C26
+
+Couleur primaire : #C89B63
+Couleur accent Plumora : #8F5C7A
+Accent IA Plumo : #A67CFF
+Erreur : #E57373
+Succès : #81C784Usage
+Couleur
+Code
+Fond principal
+Bleu nuit presque noir
+#0E1117
+Fond secondaire / sections
+Bleu ardoise foncé
+#161B22
+Cartes de livres
+Gris nuit
+#1F2633
+Texte principal
+Blanc cassé
+#F4F1EA
+Texte secondaire
+Gris doux
+#A8A8B3
+Couleur de marque
+Violet plume
+#7C5CFF
+Accent premium
+Doré doux
+#D6B25E
+Bordures fines
+Gris bleuté
+#2A3142
+Succès / validation
+Vert doux
+#3FBF7F
+Alerte / erreur
+Rouge doux
+
+
+2 
+
+Usage
+Couleur
+Code
+Fond principal
+Bleu nuit presque noir
+#0E1117
+Fond secondaire / sections
+Bleu ardoise foncé
+#161B22
+Cartes de livres
+Gris nuit
+#1F2633
+Texte principal
+Blanc cassé
+#F4F1EA
+Texte secondaire
+Gris doux
+#A8A8B3
+Couleur de marque
+Violet plume
+#7C5CFF
+Accent premium
+Doré doux
+#D6B25E
+Bordures fines
+Gris bleuté
+#2A3142
+Succès / validation
+Vert doux
+#3FBF7F
+Alerte / erreur
+Rouge doux
+
+
+
+
+
 
 Fond principal
 Blanc cassé
