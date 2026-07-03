@@ -1,9 +1,47 @@
+
+
+
+
+
+
+
+
+Pendant mes deux années d’alternance à La Banque Postale, j’ai travaillé comme apprenti concepteur développeur mainframe. 
+
+Au début, l’environnement mainframe était nouveau pour moi, mais j’ai progressivement appris à analyser les traitements, comprendre les règles métiers et corriger des programmes
+
+Cette alternance m’a permis de gagner en autonomie, en rigueur et en méthode. J’ai appris à analyser un sujet, vérifier les impacts, préparer des tests, contrôler les résultats et communiquer avec les différentes équipes.
+
+
+
+Points d’amélioration
+
+Un point qui pourrait être amélioré concerne le suivi des tâches réalisées pendant l’alternance. Même si j’ai pu travailler sur plusieurs sujets techniques et gagner en autonomie, il serait intéressant de formaliser davantage les missions confiées, les tâches réalisées et les compétences mobilisées.
+
+Cela pourrait passer par un suivi plus régulier dans le PDC, afin de mieux tracer les travaux effectués, les objectifs atteints et les compétences développées au fil de l’alternance. Cette formalisation permettrait aussi d’avoir une meilleure visibilité sur la progression de l’alternant et de faciliter les échanges entre l’école, l’entreprise et le tuteur.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 1 
 
 Fond principal : #11100E
 Fond secondaire : #1A1714
 Carte / surface : #221E1A
-Texte principal : #F5F1E8
+Texte princ
+
+ipal : #F5F1E8
 Texte secondaire : #B8AEA2
 Bordure légère : #332C26
 
