@@ -1,3 +1,63 @@
+Le projet me semble solide — et l'AGENTS.md que tu as posé montre que tu as déjà bien réfléchi à l'architecture (domaines métier, couches propres, scoping MVP clair). C'est exactement le niveau d'exigence attendu pour un titre 7. Je vais répondre point par point, en commençant par ta question la plus concrète : quelle IA choisir.
+
+**Quelle(s) IA intégrer**
+
+Pour Mukeme, tu as en réalité deux besoins différents, qui n'ont pas les mêmes contraintes :
+- **Mukeme Recommandation** : tâche simple (comprendre une envie, classer des livres candidats) → un modèle léger et bon marché suffit largement
+- **Mukeme Assistant d'écriture** : tâche plus fine (reformuler un texte littéraire sans trahir le style de l'auteur) → mieux vaut un modèle plus qualitatif
+
+Voici où en sont les principaux fournisseurs (tarifs par million de tokens, à vérifier au moment de l'implémentation car ça bouge vite) :
+
+| Fournisseur | Modèle économique (recos) | Modèle qualité (rédaction) | Point fort pour Plumora | Point de vigilance |
+|---|---|---|---|---|
+| **Mistral AI** 🇫🇷 | Small — environ $0,15 / $0,60 | Medium ou Large — $0,5 à $1,5 / $1,5 à $7,5 | Hébergement UE natif, conçu pour le RGPD, très bon en français, propose aussi un modèle d'embeddings dédié | Écosystème/tutoriels un peu moins fournis qu'OpenAI |
+| **OpenAI** | GPT-4o mini / 4.1 nano — ~$0,10-0,15 / $0,40-0,60 | Gamme GPT-5.x — $0,75 à $2,50 / $4,50 à $15 | Écosystème énorme, SDK et docs abondants | Hébergement US par défaut ; gamme qui change de nom tous les 2-3 mois |
+| **Google Gemini** | Flash-Lite — ~$0,25 / $1,50 (palier gratuit) | Flash / Pro — $0,5 à $2 / $3 à $12 | Le moins cher pour prototyper, fenêtre de contexte énorme | Sur le palier gratuit, les prompts peuvent être utilisés par Google pour améliorer ses modèles — à éviter pour des manuscrits non publiés |
+| **Anthropic Claude** | Haiku 4.5 — $1 / $5 | Sonnet 5, devenu le modèle par défaut depuis le 30 juin 2026 — tarif d'intro $2/$10 jusqu'à fin août 2026 | Réputation très solide sur la reformulation nuancée / écriture créative | Pas d'ancrage UE natif ; légèrement plus cher à qualité égale |
+
+**Ma recommandation** : pars sur **Mistral** en priorité — Small pour les recommandations, Medium ou Large pour l'assistant d'écriture. Trois raisons concrètes pour *ton* projet précisément :
+1. Un manuscrit non publié est une donnée sensible (propriété intellectuelle de l'auteur) — Mistral offre un hébergement UE et une conformité RGPD nativement, ce qui simplifie ton argumentaire sécurité/réglementaire (et ça sert directement ta veille réglementaire du Bloc 1, C1.3.1)
+2. Mistral propose aussi un modèle d'embeddings — utile pour la recommandation (j'y reviens plus bas)
+3. Un seul fournisseur pour les deux features = une seule intégration, une seule facture, plus simple pour un projet solo
+
+Claude Haiku/Sonnet reste un très bon second choix si la qualité de reformulation prime sur tout le reste — n'hésite pas si tu veux comparer les deux en conditions réelles avant de trancher.
+
+**Comment l'architecturer (sans te lier les mains)**
+
+Le schéma au-dessus montre le flux que je recommande pour la recommandation : ton Flutter n'appelle jamais l'IA directement (bonne pratique déjà dans ton AGENTS.md). Le service Spring Boot interroge d'abord ton catalogue PostgreSQL pour trouver des candidats plausibles (filtre par genre/tags dans un premier temps — largement suffisant pour un MVP ; si tu as le temps, l'évolution naturelle est d'ajouter des embeddings via `pgvector` pour une recherche sémantique par "ambiance"), puis envoie cette shortlist + l'intention du lecteur au modèle IA, qui la classe et justifie chaque `match_score`. Cette étape de filtrage **avant** l'appel IA est importante : sans elle, le modèle peut halluciner des titres qui n'existent pas dans ton catalogue.
+
+Point d'architecture important : définis une interface dans ta couche `domain` (genre `AiTextGenerationPort`), implémentée dans `infrastructure` par un `MistralAiAdapter`. Comme ça, le choix du fournisseur reste un détail d'infrastructure interchangeable — cohérent avec ta Clean Architecture existante, et ça te permet de changer d'avis (ou de comparer deux fournisseurs) sans toucher au reste du code. C'est aussi un excellent point à mettre en avant à l'oral du Bloc 1 (C1.5, architecture extensible).
+
+Une chose à corriger dans ton AGENTS.md : tu notes bien que l'auteur doit accepter, modifier ou ignorer une suggestion, mais tes conventions d'API ne listent qu'un endpoint `accept`. Il te manque `reject` et `modify` (ou un `PATCH .../suggestions/{id}` générique avec un champ `status`) pour respecter ta propre règle métier.
+
+**Sécurité — un point d'actualité utile pour ton dossier**
+
+L'OWASP a publié une nouvelle édition de son Top 10 fin 2025 (celle que cite le référentiel n'a pas de millésime précisé, donc autant utiliser la plus récente). Deux nouveautés te concernent directement :
+- La catégorie "Insecure Design" couvre désormais explicitement les attaques sur les applications qui appellent des API de LLM : injection de prompt, manipulation du modèle, failles dans la frontière de confiance. Concrètement : un commentaire de bêta-lecteur ou un extrait de chapitre pourrait contenir une instruction cachée destinée à manipuler ton assistant IA. Pense à bien délimiter le texte utilisateur dans ton prompt système et à ne jamais laisser une sortie IA déclencher une action automatiquement.
+- La gestion des dépendances a évolué vers "Software Supply Chain Failures", qui inclut maintenant le pipeline CI/CD lui-même — pertinent vu que tu as déjà de l'intégration continue prévue.
+
+Citer explicitement l'OWASP Top 10:2025 (plutôt que la version 2021 que la plupart des étudiants citent par réflexe) est un excellent point de veille technique à valoriser (C1.3.1).
+
+**Le budget IA, pour ton chiffrage (C1.4.2)**
+
+Avec Mistral Small à ~$0,15/M tokens en entrée, une suggestion de reformulation (disons 500 tokens de contexte + 300 de réponse) coûte une fraction de centime. Même à plusieurs milliers de requêtes/mois en test, tu restes sous quelques dollars. C'est un argument budgétaire simple et concret à présenter au jury — et pense à ajouter un quota par utilisateur (ex. avec Bucket4j côté Spring) pour te protéger d'un abus qui ferait exploser la facture.
+
+**Points de vigilance pour la certification, bloc par bloc**
+
+- **Bloc 1** : n'oublie pas l'**impact environnemental** — il revient à plusieurs endroits du référentiel (SWOT, architecture) et c'est facile à zapper. Une mention simple (choix d'hébergement, sobriété des appels IA via le cache de prompts) suffit.
+- **Bloc 2** : ton accessibilité doit citer un référentiel nommé (RGAA/OPQUAST sont pensés pour le web — pour du Flutter mobile/desktop, tu peux t'appuyer sur les mêmes principes WCAG via les widgets `Semantics` de Flutter, en le justifiant explicitement). Vérifie aussi que tes mesures de sécurité couvrent bien les failles OWASP citées ci-dessus.
+- **Bloc 3** : si tu es seul sur ce projet, le jury attend quand même une présentation de style managérial, RACI, gestion des compétences d'équipe. Le référentiel autorise une mise en situation "fictive" — prépare un scénario d'équipe (même imaginaire) plutôt que d'arriver les mains vides sur cette partie.
+- **Bloc 4** : le monitoring (sondes, seuils d'alerte) et le journal de version sont éliminatoires — prévois-les dès la conception, pas en dernière minute.
+- **Transversal** : le scope de Plumora est ambitieux (auth, livres/chapitres/versions, bêta-lecture complète, 2 features IA, notifications...). Pour un candidat qui travaille seul, je te conseille de sécuriser d'abord un noyau démontrable de bout en bout (écrire → publier → lire → recommander) avant d'étoffer le reste — mieux vaut un périmètre plus restreint mais entièrement fonctionnel, testé et sécurisé qu'une couverture large mais fragile sur les compétences éliminatoires.
+
+Qu'est-ce qui t'aiderait le plus maintenant ?
+
+
+
+
+
+
+
 
 
 
