@@ -1,3 +1,322 @@
+2
+Voici des axes d’amélioration plus concrets et plus crédibles pour une alternance en développement mainframe à La Banque Postale. L’objectif est de rester constructif, sans donner l’impression de critiquer directement l’équipe.
+
+Axes d’amélioration les plus pertinents
+
+1. Formaliser davantage l’attribution et le suivi des sujets
+
+Les tâches confiées pourraient être davantage formalisées dans le PDC, avec une description du besoin, les objectifs, les échéances, le responsable du sujet et les résultats attendus.
+
+Cela permettrait à l’alternant de mieux suivre son activité, de connaître les priorités et de garder une trace des compétences acquises au cours de l’alternance.
+
+2. Organiser des retours après chaque sujet terminé
+
+Une fois une évolution ou une correction terminée, un échange court pourrait être organisé avec le responsable du sujet afin de présenter les points réussis, les erreurs éventuelles et les améliorations possibles.
+
+Dans mon cas, ces retours auraient permis de mieux identifier mes points forts et les compétences techniques ou méthodologiques que je devais encore renforcer.
+
+3. Mettre en place un parcours d’intégration spécifique au mainframe
+
+L’environnement mainframe étant peu abordé dans les formations classiques, sa prise en main peut être difficile pour un nouvel alternant.
+
+Un parcours progressif pourrait être proposé, avec une présentation de l’architecture générale, des principaux outils, des règles de développement, des procédures de livraison et des exemples de traitements existants.
+
+Cela permettrait de mieux comprendre l’environnement avant d’intervenir sur des applications complexes.
+
+4. Donner davantage de visibilité sur le contexte métier des sujets
+
+Les missions confiées sont parfois présentées principalement sous leur aspect technique, sans toujours expliquer suffisamment leur contexte fonctionnel.
+
+Une présentation plus complète du besoin métier, des utilisateurs concernés, des données manipulées et des conséquences attendues permettrait à l’alternant de mieux comprendre la finalité de son travail.
+
+Cela aiderait également à proposer des solutions plus pertinentes et à mieux anticiper les impacts.
+
+5. Donner une vision plus complète du cycle de vie d’une évolution
+
+Il serait intéressant que l’alternant puisse suivre plus régulièrement un sujet depuis l’expression du besoin jusqu’à sa mise en production.
+
+Cela comprendrait l’analyse, la conception, le développement, les tests, la recette, la livraison et le suivi après mise en production.
+
+Cette vision globale permettrait de mieux comprendre les responsabilités de chaque équipe et le fonctionnement complet d’un projet informatique bancaire.
+
+6. Renforcer les revues de code et les échanges techniques
+
+Des revues de code plus régulières avec un développeur expérimenté pourraient permettre à l’alternant de mieux comprendre les standards internes, les bonnes pratiques COBOL, les règles de nommage et les méthodes permettant d’éviter les régressions.
+
+Ces échanges seraient également utiles pour expliquer pourquoi une solution est préférable à une autre, au-delà de la simple correction du programme.
+
+7. Prévoir une montée en responsabilité plus progressive
+
+Il pourrait être intéressant de définir plusieurs niveaux de progression pour les alternants.
+
+Par exemple, commencer par des corrections simples, puis passer à des évolutions plus complexes, avant de confier la prise en charge complète d’un sujet.
+
+Cette progression permettrait de mieux mesurer l’évolution de l’alternant et de lui donner progressivement davantage d’autonomie.
+
+8. Diversifier davantage les missions
+
+Une plus grande diversité de missions pourrait permettre de développer une vision plus complète de l’environnement mainframe.
+
+L’alternant pourrait ainsi intervenir sur différents types de sujets : programmes COBOL, traitements batch, JCL, requêtes DB2, incidents, analyse de production, optimisation et documentation.
+
+Cela permettrait d’éviter de rester trop longtemps sur un même type de tâche et de développer des compétences plus variées.
+
+9. Améliorer la documentation technique disponible
+
+Certaines informations concernant les programmes, les traitements ou les procédures peuvent être difficiles à retrouver.
+
+Une documentation plus centralisée et régulièrement mise à jour permettrait aux alternants de gagner du temps et de devenir plus rapidement autonomes.
+
+Cette documentation pourrait notamment présenter les applications, les chaînes de traitement, les règles métiers principales, les procédures de test et les erreurs courantes.
+
+10. Clarifier davantage les priorités et les échéances
+
+Lorsqu’un alternant travaille sur plusieurs sujets, il peut être difficile de savoir lequel doit être traité en priorité.
+
+Une meilleure clarification des niveaux d’urgence, des échéances attendues et des dépendances entre les tâches permettrait d’organiser plus efficacement le travail.
+
+Cela limiterait également les changements de priorité tardifs ou les périodes d’attente entre deux sujets.
+
+11. Associer davantage l’alternant aux réunions de conception
+
+La participation à davantage de réunions techniques ou fonctionnelles permettrait de mieux comprendre les décisions prises avant le développement.
+
+Cela aiderait l’alternant à développer des compétences en analyse, en conception et en communication, et pas uniquement en programmation.
+
+12. Mieux valoriser les réalisations de l’alternant
+
+Un bilan régulier des sujets terminés pourrait permettre de mieux mettre en évidence les réalisations, les compétences acquises et la progression de l’alternant.
+
+Cela serait particulièrement utile pour préparer les évaluations, les entretiens avec l’école et le retour d’expérience de fin d’alternance.
+
+13. Renforcer le lien entre l’école et les missions en entreprise
+
+Il pourrait être utile de rapprocher davantage les missions confiées en entreprise des compétences attendues dans le cadre de la formation.
+
+Un point régulier entre l’alternant, le tuteur et l’école permettrait de vérifier que les missions couvrent suffisamment les compétences nécessaires à la certification.
+
+14. Prévoir davantage de temps pour la transmission de connaissances
+
+Dans un environnement aussi complexe que le mainframe, certaines connaissances reposent beaucoup sur l’expérience des collaborateurs.
+
+Des séances de partage de connaissances pourraient être organisées sur des sujets précis : fonctionnement d’une application, résolution d’incidents, bonnes pratiques DB2, gestion des fichiers ou analyse d’un traitement batch.
+
+Cela faciliterait la transmission des connaissances et limiterait la dépendance à certaines personnes.
+
+Axes d’amélioration personnels
+
+Tu peux également montrer que tu sais prendre du recul sur ta propre progression.
+
+Améliorer l’estimation du temps nécessaire
+
+Au début de mon alternance, j’avais parfois des difficultés à estimer le temps nécessaire pour analyser et réaliser un sujet.
+
+Avec l’expérience, j’ai appris à mieux découper les tâches, à identifier les points de blocage et à communiquer plus rapidement lorsqu’un délai devait être ajusté.
+
+Poser les questions plus tôt
+
+J’ai parfois consacré beaucoup de temps à rechercher seul une solution avant de demander de l’aide.
+
+J’ai progressivement compris qu’il était important de conserver son autonomie tout en sollicitant les bonnes personnes lorsqu’un blocage risquait de ralentir fortement le sujet.
+
+Développer davantage ma communication
+
+J’ai également progressé dans la manière de présenter mon avancement, mes difficultés et les résultats de mes tests.
+
+Je dois continuer à améliorer ma capacité à synthétiser un problème technique et à l’expliquer de manière claire à des interlocuteurs ayant des profils différents.
+
+Approfondir mes connaissances fonctionnelles
+
+Même si j’ai acquis une meilleure compréhension du secteur bancaire, certains sujets restaient complexes en raison du nombre important de règles métiers.
+
+Je souhaite continuer à approfondir ma compréhension fonctionnelle afin de mieux anticiper les impacts des évolutions techniques.
+
+Les 4 axes les plus adaptés à ton retour
+
+Pour éviter une partie trop longue, je te conseille de retenir principalement :
+
+1. La formalisation des tâches et du suivi dans le PDC.
+
+
+2. La mise en place de retours réguliers après les sujets.
+
+
+3. Un parcours d’intégration mainframe plus structuré.
+
+
+4. Une meilleure visibilité sur le contexte métier et le cycle complet des évolutions.
+
+
+
+Ces axes sont suffisamment précis, professionnels et constructifs pour être présentés à ton entreprise ou dans ton dossier d’alternance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 
+Voici une version complète, professionnelle et équilibrée, qui valorise ton expérience tout en présentant les axes d’amélioration avec diplomatie.
+
+Retour d’expérience – Alternance à La Banque Postale
+
+Pendant mes deux années d’alternance à La Banque Postale, j’ai occupé le poste d’apprenti concepteur-développeur mainframe.
+
+À mon arrivée, l’environnement mainframe était entièrement nouveau pour moi. J’ai donc dû me familiariser progressivement avec ses technologies, ses outils, ses méthodes de travail ainsi qu’avec les règles métiers propres au secteur bancaire.
+
+Au fil des missions qui m’ont été confiées, j’ai appris à analyser des traitements existants, à comprendre les besoins exprimés, à identifier les impacts d’une évolution et à intervenir sur des programmes en respectant les contraintes techniques et fonctionnelles du système d’information.
+
+Cette alternance m’a permis de gagner en autonomie, en rigueur et en méthode de travail. J’ai notamment appris à analyser un sujet dans sa globalité, à vérifier les impacts potentiels d’une modification, à préparer des cas de test, à contrôler les résultats obtenus et à communiquer avec les différentes personnes impliquées dans un projet.
+
+À travers ce retour d’expérience, je souhaite présenter les principaux points forts de mon alternance, ainsi que certains axes d’amélioration qui pourraient, selon moi, contribuer à enrichir davantage l’accompagnement des futurs alternants.
+
+Points forts de l’alternance
+
+La découverte d’un environnement technique exigeant
+
+L’un des principaux points forts de cette alternance a été la découverte de l’environnement mainframe, qui occupe une place importante dans le fonctionnement des systèmes d’information bancaires.
+
+J’ai pu développer mes compétences sur différentes technologies et différents outils, notamment COBOL, JCL, DB2, CICS ainsi que les outils liés à l’environnement z/OS. La diversité des sujets traités m’a permis de mieux comprendre le fonctionnement des traitements batch, la gestion des fichiers, les accès aux bases de données et les interactions entre les différents programmes.
+
+Cette expérience m’a également appris à intervenir avec prudence dans un environnement sensible, au sein duquel une modification, même limitée, peut avoir des conséquences sur plusieurs traitements.
+
+Une progression vers davantage d’autonomie
+
+Au début de mon alternance, j’avais besoin d’un accompagnement important pour comprendre les programmes, les procédures et les règles métiers. Progressivement, j’ai été capable de prendre en charge des sujets avec davantage d’autonomie.
+
+J’ai appris à rechercher les informations nécessaires, à analyser un programme existant, à identifier l’origine d’une anomalie et à proposer une solution adaptée. J’ai également développé le réflexe de vérifier les impacts avant toute modification et de contrôler attentivement les résultats obtenus.
+
+Cette évolution représente pour moi l’un des principaux apports de ces deux années d’alternance.
+
+Le développement de la rigueur et de la méthode
+
+Le contexte bancaire exige un niveau élevé de fiabilité, de traçabilité et de contrôle. Cette exigence m’a permis d’améliorer considérablement ma façon de travailler.
+
+Pour chaque évolution, j’ai appris à suivre une démarche structurée : comprendre le besoin, analyser l’existant, identifier les impacts, réaliser les modifications, préparer les tests et vérifier les résultats avant la livraison.
+
+Cette méthodologie m’a permis de limiter les erreurs et de mieux justifier les choix techniques réalisés. Elle pourra être réutilisée dans mes futures expériences professionnelles, y compris dans d’autres environnements technologiques.
+
+L’acquisition de connaissances fonctionnelles
+
+Au-delà des compétences techniques, cette alternance m’a permis de découvrir différentes règles métiers liées au secteur bancaire.
+
+J’ai compris qu’un développeur ne doit pas seulement savoir modifier du code. Il doit également comprendre la finalité du traitement, les données manipulées et les conséquences fonctionnelles de ses modifications.
+
+Cette dimension métier m’a permis de prendre davantage de recul sur les sujets qui m’étaient confiés et de proposer des solutions plus adaptées aux besoins exprimés.
+
+L’intégration au sein d’une équipe professionnelle
+
+J’ai eu l’occasion de travailler avec plusieurs profils : développeurs, responsables de sujets, équipes de recette et interlocuteurs fonctionnels.
+
+Les échanges avec les membres de l’équipe m’ont aidé à progresser et à mieux comprendre les bonnes pratiques utilisées dans un environnement professionnel. J’ai également appris à communiquer sur l’avancement de mes tâches, à présenter les difficultés rencontrées et à demander de l’aide lorsque cela était nécessaire.
+
+L’accompagnement et la disponibilité des collaborateurs ont joué un rôle important dans ma montée en compétences.
+
+La participation à des sujets concrets
+
+Les missions réalisées répondaient à de véritables besoins de l’entreprise. J’ai ainsi pu intervenir sur des évolutions de programmes, des traitements de fichiers, des requêtes sur les bases de données ainsi que sur la correction d’anomalies.
+
+Le fait de travailler sur des sujets réellement utilisés dans le système d’information a renforcé mon implication. Cela m’a également permis de mieux comprendre les responsabilités associées au métier de concepteur-développeur.
+
+Axes d’amélioration
+
+Formaliser davantage le suivi des tâches
+
+Un premier point d’amélioration concerne le suivi des tâches réalisées pendant l’alternance.
+
+Il pourrait être intéressant de formaliser davantage les sujets confiés aux alternants en utilisant plus régulièrement le PDC. Chaque tâche pourrait, par exemple, être accompagnée d’une description du besoin, des objectifs attendus, des personnes référentes, des échéances et de l’état d’avancement.
+
+Un suivi plus régulier par les responsables des sujets permettrait à l’alternant de mieux visualiser ses priorités, de suivre sa progression et de conserver une trace des compétences développées au cours de l’année.
+
+Cela faciliterait également la préparation des bilans d’alternance et des échanges avec l’école.
+
+Mettre en place des points de suivi plus réguliers
+
+Même si des échanges avaient lieu en fonction des besoins, la mise en place de points de suivi planifiés pourrait améliorer l’accompagnement.
+
+Ces échanges pourraient permettre de faire le bilan des missions réalisées, d’identifier les difficultés rencontrées, de recueillir des retours sur le travail fourni et de définir les prochaines étapes.
+
+Pour un alternant, disposer de retours réguliers est important afin de savoir si son travail correspond aux attentes et d’identifier rapidement les compétences à renforcer.
+
+Renforcer l’accompagnement lors de la prise en main du mainframe
+
+L’environnement mainframe peut être difficile à appréhender pour une personne qui le découvre. Les outils, les technologies et certaines méthodes de travail sont très différents de ceux généralement étudiés à l’école.
+
+Un parcours d’intégration plus structuré pourrait faciliter cette prise en main. Il pourrait inclure une présentation globale du système d’information, une introduction aux principaux outils, des exercices progressifs et une documentation regroupant les procédures les plus fréquemment utilisées.
+
+Cela permettrait aux nouveaux alternants de gagner plus rapidement en autonomie et de mieux comprendre la place de leurs missions dans l’ensemble du système.
+
+Donner davantage de visibilité sur les projets
+
+Selon les sujets, l’alternant peut parfois se concentrer principalement sur la partie technique qui lui est confiée sans avoir une vision complète du projet.
+
+Présenter davantage le contexte général, les besoins des utilisateurs, les différents intervenants et les étapes suivant le développement permettrait de mieux comprendre la finalité des travaux réalisés.
+
+Cette vision globale serait également utile pour développer des compétences en gestion de projet et mieux comprendre les interactions entre les équipes techniques et fonctionnelles.
+
+Bilan personnel
+
+Dans l’ensemble, cette alternance représente une expérience très enrichissante, aussi bien sur le plan technique que professionnel.
+
+Elle m’a permis de découvrir un environnement complexe, de développer des compétences en conception et en développement mainframe et de mieux comprendre les exigences associées au secteur bancaire.
+
+J’ai également progressé en autonomie, en organisation, en communication et en capacité d’analyse. J’ai appris à ne pas me limiter à la correction d’un programme, mais à comprendre le besoin, à anticiper les impacts et à sécuriser chaque modification grâce à des tests adaptés.
+
+Les difficultés rencontrées au cours de ces deux années ont également participé à ma progression. Elles m’ont appris à persévérer, à approfondir mes recherches et à solliciter les bonnes personnes lorsque cela était nécessaire.
+
+Cette expérience constitue une étape importante dans mon parcours. Elle m’a permis de confirmer mon intérêt pour la conception et le développement de systèmes d’information, tout en me donnant des bases solides pour la suite de ma carrière professionnelle.Pour un retour destiné à être présenté à l’oral, il faudra ensuite le raccourcir afin de tenir en environ trois à cinq minutes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Retour d’expérience – Alternance à la banque postale 
 
 Pendant mes deux années d’alternance à La Banque Postale, j’ai travaillé comme apprenti concepteur développeur mainframe.
