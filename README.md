@@ -1,3 +1,38 @@
+Retour d’expérience – Alternance à la banque postale 
+
+Pendant mes deux années d’alternance à La Banque Postale, j’ai travaillé comme apprenti concepteur développeur mainframe.
+Au début, l’environnement mainframe était nouveau pour moi, mais j’ai progressivement appris à analyser les traitements, comprendre les règles métiers et corriger des programmes
+Cette alternance m’a permis de gagner en autonomie, en rigueur et en méthode de travail. J’ai appris à analyser un sujet, vérifier les impacts, préparer des tests, contrôler les résultats et communiquer avec les différentes équipes.
+Je profite de ce retour d’expérience pour partager mon point de vue à la fois les points forts de mon alternance mais aussi les points d’amélioration 
+Axes d’amélioration
+Un point qui pourrait être amélioré concerne le suivi des tâches réalisées pendant l’alternance : 
+Formaliser davantage les tâches confiées en passant par un suivi plus régulier par les responsables des sujets dans le PDC.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Le projet me semble solide — et l'AGENTS.md que tu as posé montre que tu as déjà bien réfléchi à l'architecture (domaines métier, couches propres, scoping MVP clair). C'est exactement le niveau d'exigence attendu pour un titre 7. Je vais répondre point par point, en commençant par ta question la plus concrète : quelle IA choisir.
 
 **Quelle(s) IA intégrer**
